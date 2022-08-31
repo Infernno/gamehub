@@ -20,7 +20,10 @@ android {
 }
 
 dependencies {
+    implementation(projects.featureHome)
+
     implementation(libs.bundles.androidx)
+    implementation(libs.bundles.androidx.navigation)
     implementation(libs.google.material)
 
     testImplementation(libs.junit)

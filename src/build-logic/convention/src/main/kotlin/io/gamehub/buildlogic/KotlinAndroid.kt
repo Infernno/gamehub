@@ -6,17 +6,12 @@ import org.gradle.api.plugins.ExtensionAware
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
 /**
- * Configure base Kotlin with Android options
+ * Configure Kotlin
  */
-internal fun Project.configureKotlinAndroid(
+internal fun Project.configureKotlin(
     commonExtension: CommonExtension<*, *, *, *>,
 ) {
     commonExtension.apply {
-        compileSdk = BuildConfig.COMPILE_SDK
-
-        defaultConfig {
-            minSdk = BuildConfig.MIN_SDK
-        }
 
         compileOptions {
             sourceCompatibility = BuildConfig.JVM_TARGET

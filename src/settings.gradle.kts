@@ -18,3 +18,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "GameHub"
 include (":app")
+include(":feature-home")
+include(":core-utils")

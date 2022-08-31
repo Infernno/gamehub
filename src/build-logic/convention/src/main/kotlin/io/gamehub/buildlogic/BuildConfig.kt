@@ -9,4 +9,6 @@ object BuildConfig {
     val COMPILE_SDK = 32
 
     val JVM_TARGET = JavaVersion.VERSION_1_8
+
+    val MINIFY = false
 }

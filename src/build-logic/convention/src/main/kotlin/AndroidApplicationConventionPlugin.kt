@@ -1,6 +1,6 @@
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import io.gamehub.buildlogic.BuildConfig
-import io.gamehub.buildlogic.configureKotlinAndroid
+import io.gamehub.buildlogic.configureKotlin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -14,8 +14,14 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             }
 
             extensions.configure<BaseAppModuleExtension> {
-                configureKotlinAndroid(this)
-                defaultConfig.targetSdk = BuildConfig.TARGET_SDK
+                compileSdk = BuildConfig.COMPILE_SDK
+
+                defaultConfig.apply {
+                    minSdk = BuildConfig.MIN_SDK
+                    targetSdk = BuildConfig.TARGET_SDK
+                }
+
+                configureKotlin(this)
             }
         }
     }
