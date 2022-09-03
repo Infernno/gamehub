@@ -1,6 +1,5 @@
 plugins {
     id("gamehub.android.library")
-    id("org.jetbrains.kotlin.android")
 }
 
 dependencies {
