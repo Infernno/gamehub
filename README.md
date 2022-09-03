@@ -2,7 +2,7 @@
 
 **GameHub** is an app where you can read about popular and trending video games, watch trailers, see upcoming releases and more.
 
-[IGDB](https://api-docs.igdb.com/) is used as data source under the hood.
+[RAWG](https://rawg.io/apidocs) is used as data source under the hood.
 
 ## Features
 
