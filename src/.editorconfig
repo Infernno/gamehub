@@ -1,0 +1,16 @@
+# https://EditorConfig.org
+
+root = true
+
+# For every file
+[*]
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# JSON
+[*.json]
+insert_final_newline = false
+
+# Markdown
+[*.md]
+trim_trailing_whitespace = false
