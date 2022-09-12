@@ -31,9 +31,15 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
                     }
                     getByName("release") {
                         isMinifyEnabled = BuildConfig.MINIFY
-                        proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"),
-                            "proguard-rules.pro")
+                        proguardFiles(
+                            getDefaultProguardFile("proguard-android-optimize.txt"),
+                            "proguard-rules.pro"
+                        )
                     }
+                }
+
+                buildFeatures.apply {
+                    viewBinding = true
                 }
 
                 configureKotlin(this)

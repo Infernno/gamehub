@@ -3,8 +3,10 @@ plugins {
 }
 
 dependencies {
-    implementation(libs.bundles.androidx)
+    implementation(libs.bundles.androidx.core)
     implementation(libs.google.material)
+
+    implementation(libs.kotlinx.coroutines)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.bundles.androidx.test)

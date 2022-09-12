@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="offset2">2dp</dimen>
+    <dimen name="offset4">4dp</dimen>
+    <dimen name="offset12">12dp</dimen>
+    <dimen name="offset16">16dp</dimen>
+    <dimen name="offset20">20dp</dimen>
+    <dimen name="offset24">24dp</dimen>
+    <dimen name="offset32">32dp</dimen>
+    <dimen name="offset40">40dp</dimen>
+</resources>

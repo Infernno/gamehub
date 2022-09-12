@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">GameHub</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_upcoming">Upcoming games</string>
+    <string name="menu_search">Search</string>
+    <string name="menu_favorite">Favorite</string>
 </resources>

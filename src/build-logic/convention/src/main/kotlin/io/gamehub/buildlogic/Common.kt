@@ -24,12 +24,8 @@ internal fun Project.configureKotlin(
 
             freeCompilerArgs = freeCompilerArgs + listOf(
                 "-opt-in=kotlin.RequiresOptIn",
-                // Enable experimental coroutines APIs, including Flow
+                // Enable experimental APIs
                 "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-                "-opt-in=kotlinx.coroutines.FlowPreview",
-                "-opt-in=kotlin.Experimental",
-                // Enable experimental kotlinx serialization APIs
-                "-opt-in=kotlinx.serialization.ExperimentalSerializationApi"
             )
 
             // Set JVM target to 1.8

@@ -20,3 +20,8 @@ rootProject.name = "GameHub"
 include (":app")
 include(":feature-home")
 include(":core-utils")
+include(":data-games")
+include(":core-network")
+include(":core-navigation")
+include(":feature-search")
+include(":core-ui")
