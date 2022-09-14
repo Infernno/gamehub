@@ -18,7 +18,6 @@ class HomeViewModel @Inject constructor(
         gameRepository
             .getAllGames()
             .tap {
-                delay(1000)
                 emit(State.Default(it))
             }
             .tapNone {

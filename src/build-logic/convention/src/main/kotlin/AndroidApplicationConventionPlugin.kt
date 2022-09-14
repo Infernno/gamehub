@@ -18,8 +18,23 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                 compileSdk = BuildConfig.COMPILE_SDK
 
                 defaultConfig.apply {
+                    testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
                     minSdk = BuildConfig.MIN_SDK
                     targetSdk = BuildConfig.TARGET_SDK
+                }
+
+                buildTypes {
+                    getByName("debug") {
+                        isMinifyEnabled = false
+                    }
+                    getByName("release") {
+                        isMinifyEnabled = BuildConfig.MINIFY
+                        proguardFiles(
+                            getDefaultProguardFile("proguard-android-optimize.txt"),
+                            "proguard-rules.pro"
+                        )
+                    }
                 }
 
                 buildFeatures.apply {

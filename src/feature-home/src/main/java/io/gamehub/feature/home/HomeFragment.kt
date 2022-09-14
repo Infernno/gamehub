@@ -15,7 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import io.gamehub.core.utils.extensions.observe
 import io.gamehub.data.games.models.Game
 import io.gamehub.feature.home.databinding.FragmentHomeBinding
-import io.gamehub.feature.home.databinding.LiItemCarouselBinding
+import io.gamehub.feature.home.databinding.LiCarouselItemBinding
 
 @AndroidEntryPoint
 class HomeFragment : Fragment(R.layout.fragment_home) {
@@ -23,8 +23,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private val viewModel: HomeViewModel by viewModels()
     private val viewBinding: FragmentHomeBinding by viewBinding()
 
-    private val adapter by lazy {
-        ListDelegationAdapter(adapterDelegate())
+    private val carouselAdapter by lazy(mode = LazyThreadSafetyMode.NONE) {
+        ListDelegationAdapter(carouselDelegate())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,7 +32,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         val carousel = viewBinding.popularGames
 
-        carousel.adapter = adapter
+        carousel.adapter = carouselAdapter
         carousel.enableAutoScroll(viewLifecycleOwner.lifecycleScope)
 
         viewModel.state.observe(viewLifecycleOwner) {
@@ -46,13 +46,13 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             progressLayout.isVisible = state is HomeViewModel.State.Loading
 
             if (state is HomeViewModel.State.Default) {
-                adapter.items = state.popularGames
+                carouselAdapter.items = state.popularGames
             }
         }
     }
 
-    private fun adapterDelegate() = adapterDelegateViewBinding<Game, Game, LiItemCarouselBinding>(
-        { layoutInflater, root -> LiItemCarouselBinding.inflate(layoutInflater, root, false) }
+    private fun carouselDelegate() = adapterDelegateViewBinding<Game, Game, LiCarouselItemBinding>(
+        { layoutInflater, root -> LiCarouselItemBinding.inflate(layoutInflater, root, false) }
     ) {
         bind {
             Glide
@@ -60,6 +60,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                 .load(item.imageUrl)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(binding.image)
+        }
+    }
+
+    private fun adapterDelegate(
+
+    ) = adapterDelegateViewBinding<Game, Game, LiCarouselItemBinding>(
+        { layoutInflater, root -> LiCarouselItemBinding.inflate(layoutInflater, root, false) }
+    ) {
+        bind {
+
         }
     }
 }

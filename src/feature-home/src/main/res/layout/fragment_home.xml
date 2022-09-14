@@ -47,9 +47,16 @@
                     style="?textAppearanceTitleMedium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="?colorSurface"
                     android:padding="@dimen/offset20"
                     android:text="@string/see_all"
                     android:textAllCaps="true" />
+
+                <Button
+                    android:layout_gravity="center"
+                    android:text="@string/see_all"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
                 <include layout="@layout/copyright_notice" />
 

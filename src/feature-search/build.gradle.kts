@@ -8,7 +8,6 @@ plugins {
 dependencies {
     implementation(libs.bundles.androidx.core)
     implementation(libs.bundles.androidx.navigation)
-    implementation(libs.google.material)
 
     implementation(libs.arrow.core)
     implementation(libs.kotlinx.coroutines)

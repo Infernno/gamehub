@@ -3,10 +3,12 @@ package io.gamehub.data.games.repository
 import arrow.core.Option
 import arrow.core.some
 import io.gamehub.data.games.models.Game
+import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 class FakeGameRepository @Inject constructor() : GameRepository {
     override suspend fun getPopularGames(): Option<List<Game>> {
+        delay(1000)
         return listOf(
             Game(
                 "Grand Theft Auto V",
