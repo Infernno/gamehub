@@ -1,5 +1,6 @@
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import io.gamehub.buildlogic.BuildConfig
+import io.gamehub.buildlogic.configureCommonDeps
 import io.gamehub.buildlogic.configureKotlin
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -37,11 +38,8 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
                     }
                 }
 
-                buildFeatures.apply {
-                    viewBinding = true
-                }
-
                 configureKotlin(this)
+                configureCommonDeps()
             }
         }
     }

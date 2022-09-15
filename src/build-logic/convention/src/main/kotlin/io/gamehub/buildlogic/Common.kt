@@ -2,7 +2,10 @@ package io.gamehub.buildlogic
 
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.Project
+import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.plugins.ExtensionAware
+import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmOptions
 
 /**
@@ -34,6 +37,49 @@ internal fun Project.configureKotlin(
     }
 }
 
-fun CommonExtension<*, *, *, *>.kotlinOptions(block: KotlinJvmOptions.() -> Unit) {
+internal fun Project.configureCompose(
+    commonExtension: CommonExtension<*, *, *, *>,
+) {
+    val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+
+    commonExtension.apply {
+        buildFeatures.apply {
+            compose = true
+        }
+
+        composeOptions {
+            kotlinCompilerExtensionVersion =
+                libs.findVersion("androidxComposeCompiler").get().toString()
+        }
+    }
+
+    dependencies {
+        add("implementation", libs.findBundle("androidx-compose-runtime").get())
+        add("debugImplementation", libs.findBundle("androidx-compose-tooling").get())
+        add("androidTestImplementation", libs.findBundle("androidx-compose-test").get())
+
+        add("implementation", libs.findLibrary("dagger2-hilt-runtime").get())
+        add("kapt", libs.findLibrary("dagger2-hilt-compiler").get())
+
+        // TODO : Remove this dependency once we upgrade to Android Studio Dolphin b/228889042
+        // These dependencies are currently necessary to render Compose previews
+        /*
+        add(
+            "debugImplementation",
+            libs.findLibrary("androidx.customview.poolingcontainer").get()
+        )*/
+    }
+}
+
+internal fun Project.configureCommonDeps() {
+    val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+
+    dependencies {
+        add("testImplementation", libs.findLibrary("junit").get())
+        add("androidTestImplementation", libs.findBundle("androidx-test").get())
+    }
+}
+
+internal fun CommonExtension<*, *, *, *>.kotlinOptions(block: KotlinJvmOptions.() -> Unit) {
     (this as ExtensionAware).extensions.configure("kotlinOptions", block)
 }

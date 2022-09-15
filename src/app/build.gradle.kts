@@ -1,8 +1,7 @@
 import java.util.Properties
 
 plugins {
-    id("gamehub.android.application")
-    kotlin("kapt")
+    id("gamehub.android.composeApp")
     id("dagger.hilt.android.plugin")
 }
 
@@ -27,20 +26,11 @@ android {
 
 dependencies {
     implementation(libs.bundles.androidx.core)
-    implementation(libs.bundles.androidx.navigation)
     implementation(libs.google.material)
-
     implementation(libs.okhttp)
 
-    implementation(libs.dagger2.hilt.runtime)
-    kapt(libs.dagger2.hilt.compiler)
-
+    implementation(projects.coreUi)
+    implementation(projects.coreNetwork)
     implementation(projects.featureHome)
     implementation(projects.featureSearch)
-
-    implementation(projects.coreNetwork)
-    implementation(projects.coreNavigation)
-
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.bundles.androidx.test)
 }

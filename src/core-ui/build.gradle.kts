@@ -1,11 +1,8 @@
 plugins {
-    id("gamehub.android.library")
+    id("gamehub.android.composeLibrary")
 }
 
 dependencies {
     implementation(libs.bundles.androidx.core)
-    api(libs.google.material)
-
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.bundles.androidx.test)
+    implementation(libs.google.material)
 }

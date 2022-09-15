@@ -1,48 +1,54 @@
 [versions]
 androidGradlePlugin = "7.2.2"
-kotlin = "1.7.10"
 
+# Kotlin
+kotlin = "1.7.10"
 kotlinxCoroutines = "1.6.4"
 kotlinxSerialization = "1.4.0"
 
-androidxCore = "1.8.0"
+# Core libraries
+androidxCore = "1.9.0"
 androidxAppCompat = "1.5.0"
 androidxLifecycle = "2.5.1"
 androidxActivityKtx = "1.5.1"
-androidxFragmentKtx = "1.5.2"
-androidxConstraintLayout = "2.1.4"
 androidxNavigation = "2.5.1"
 
 googleMaterial = "1.6.1"
+arrowKt = "1.1.2"
 
+# Compose
+androidxCompose = "1.3.0-beta02"
+androidxComposeCompiler = "1.3.1"
+androidxComposeMaterial3 = "1.0.0-alpha13"
+androidxHiltNavigationCompose = "1.0.0"
+coil = "2.2.1"
+google-accompanist = "0.26.3-beta"
+
+# Network
 okhttp = "4.10.0"
 retrofit2 = "2.9.0"
 retrofit2KotlinX = "0.8.0"
 
-arrowKt = "1.1.2"
+# DI
 dagger2 = "2.43.2"
 
-viewBindingDelegate = "1.5.6"
-adapterDelegates = "4.3.2"
-glide = "4.13.2"
-
+# Testing
 androidxTestJunit = "1.1.3"
 androidxEspresso = "3.4.0"
 junit4 = "4.13.2"
 
 [libraries]
-androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
-androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
-androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
-androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
-androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "androidxActivityKtx" }
-androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "androidxFragmentKtx" }
-androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidxConstraintLayout" }
-androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "androidxNavigation" }
-androidx-navigation-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "androidxNavigation" }
-
+# Kotlin
 kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
 kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+
+# Core
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
+androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "androidxActivityKtx" }
+
+androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
+androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
 
 google-material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial" }
 
@@ -55,12 +61,36 @@ retrofit2-kotlinxSerialization = { group = "com.jakewharton.retrofit", name = "r
 arrow-core = { group = "io.arrow-kt", name = "arrow-core", version.ref = "arrowKt" }
 arrow-retrofit = { group = "io.arrow-kt", name = "arrow-core-retrofit", version.ref = "arrowKt" }
 
+# DI
 dagger2-hilt-runtime = { group = "com.google.dagger", name = "hilt-android", version.ref = "dagger2" }
 dagger2-hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "dagger2" }
 
-viewBindingDelegate = { group = "com.github.kirich1409", name = "viewbindingpropertydelegate", version.ref = "viewBindingDelegate" }
-adapterDelegates = { group = "com.hannesdorfmann", name = "adapterdelegates4-kotlin-dsl-viewbinding", version.ref = "adapterDelegates" }
-glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+# Compose
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivityKtx" }
+androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "androidxCompose" }
+androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "androidxCompose" }
+
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "androidxComposeMaterial3" }
+androidx-compose-material3-windowSizeClass = { group = "androidx.compose.material3", name = "material3-window-size-class", version.ref = "androidxComposeMaterial3" }
+androidx-compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "androidxCompose" }
+
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "androidxCompose" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "androidxCompose" }
+androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "androidxCompose" }
+androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "androidxCompose" }
+androidx-compose-ui-testManifest = { group = "androidx.compose.ui", name = "ui-test-manifest", version.ref = "androidxCompose" }
+
+androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidxHiltNavigationCompose" }
+
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
+androidx-navigation-testing = { group = "androidx.navigation", name = "navigation-testing", version.ref = "androidxNavigation" }
+
+coil-kt-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil"}
+coil-kt-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil"}
+
+google-accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "google-accompanist" }
+google-accompanist-insets = { module = "com.google.accompanist:accompanist-insets", version.ref = "google-accompanist" }
+google-accompanist-flowlayout = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "google-accompanist" }
 
 # Tests
 androidx-test-ext = { group = "androidx.test.ext", name = "junit", version.ref = "androidxTestJunit" }
@@ -76,15 +106,34 @@ androidx-core = [
     "androidx-core-ktx",
     "androidx-appcompat",
     "androidx-activity-ktx",
-    "androidx-fragment-ktx",
     "androidx-lifecycle-runtime-ktx",
     "androidx-lifecycle-viewmodel-ktx",
-    "androidx-constraintlayout"
 ]
 
-androidx-navigation = [
-    "androidx-navigation-fragment",
-    "androidx-navigation-ktx"
+androidx-compose-runtime = [
+    "androidx-activity-compose",
+    "androidx-compose-ui",
+    "androidx-compose-foundation",
+    "androidx-compose-foundation-layout",
+    "androidx-compose-material3",
+    "androidx-compose-material3-windowSizeClass",
+    "androidx-compose-material-iconsExtended",
+    "androidx-compose-ui-tooling-preview",
+    "androidx-hilt-navigation-compose",
+    "coil-kt-compose",
+    "coil-kt-svg",
+    "google-accompanist-flowlayout",
+    "google-accompanist-insets",
+    "google-accompanist-flowlayout"
+]
+
+androidx-compose-tooling = [
+    "androidx-compose-ui-tooling",
+    "androidx-compose-ui-testManifest"
+]
+
+androidx-compose-test = [
+    "androidx-compose-ui-test"
 ]
 
 retrofi2 = [
@@ -103,7 +152,7 @@ androidx-test = [
 android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
 android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
 android-test = { id = "com.android.test", version.ref = "androidGradlePlugin" }
-android-navigation-safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "androidxNavigation" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger2" }

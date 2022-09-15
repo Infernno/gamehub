@@ -7,7 +7,4 @@ dependencies {
     implementation(libs.google.material)
 
     implementation(libs.kotlinx.coroutines)
-
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.bundles.androidx.test)
 }

@@ -5,8 +5,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.gamehub.data.games.models.Game
 import io.gamehub.data.games.repository.GameRepository
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,8 +29,8 @@ class HomeViewModel @Inject constructor(
     sealed class State {
         data class Default(
             val popularGames: List<Game>
-        ): State()
+        ) : State()
 
-        object Loading: State()
+        object Loading : State()
     }
 }
