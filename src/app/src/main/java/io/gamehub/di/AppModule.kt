@@ -1,9 +1,10 @@
-package io.gamehub
+package io.gamehub.di
 
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import io.gamehub.BuildConfig
 import io.gamehub.core.network.RawgApiKeyProvider
 import javax.inject.Singleton
 

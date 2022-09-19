@@ -2,5 +2,6 @@ plugins {
     id("gamehub.android.library")
 }
 
-dependencies {
+android {
+    namespace = "io.gamehub.core.navigation"
 }

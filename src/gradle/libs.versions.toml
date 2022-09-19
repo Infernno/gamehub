@@ -1,5 +1,5 @@
 [versions]
-androidGradlePlugin = "7.2.2"
+androidGradlePlugin = "7.3.0"
 
 # Kotlin
 kotlin = "1.7.10"
@@ -12,6 +12,7 @@ androidxAppCompat = "1.5.0"
 androidxLifecycle = "2.5.1"
 androidxActivityKtx = "1.5.1"
 androidxNavigation = "2.5.1"
+androidxCoreSplashscreen = "1.0.0"
 
 googleMaterial = "1.6.1"
 arrowKt = "1.1.2"
@@ -19,7 +20,7 @@ arrowKt = "1.1.2"
 # Compose
 androidxCompose = "1.3.0-beta02"
 androidxComposeCompiler = "1.3.1"
-androidxComposeMaterial3 = "1.0.0-alpha13"
+androidxComposeMaterial3 = "1.0.0-beta02"
 androidxHiltNavigationCompose = "1.0.0"
 coil = "2.2.1"
 google-accompanist = "0.26.3-beta"
@@ -50,6 +51,8 @@ androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
 
+androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashscreen" }
+
 google-material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial" }
 
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
@@ -75,6 +78,7 @@ androidx-compose-material3-windowSizeClass = { group = "androidx.compose.materia
 androidx-compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "androidxCompose" }
 
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "androidxCompose" }
+androidx-compose-ui-util = { group = "androidx.compose.ui", name = "ui-util", version.ref = "androidxCompose" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "androidxCompose" }
 androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview", version.ref = "androidxCompose" }
 androidx-compose-ui-test = { group = "androidx.compose.ui", name = "ui-test-junit4", version.ref = "androidxCompose" }
@@ -85,12 +89,10 @@ androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navig
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "androidxNavigation" }
 androidx-navigation-testing = { group = "androidx.navigation", name = "navigation-testing", version.ref = "androidxNavigation" }
 
-coil-kt-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil"}
-coil-kt-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil"}
+coil-kt-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
+coil-kt-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil" }
 
-google-accompanist-systemuicontroller = { module = "com.google.accompanist:accompanist-systemuicontroller", version.ref = "google-accompanist" }
-google-accompanist-insets = { module = "com.google.accompanist:accompanist-insets", version.ref = "google-accompanist" }
-google-accompanist-flowlayout = { module = "com.google.accompanist:accompanist-flowlayout", version.ref = "google-accompanist" }
+google-accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "google-accompanist" }
 
 # Tests
 androidx-test-ext = { group = "androidx.test.ext", name = "junit", version.ref = "androidxTestJunit" }
@@ -113,18 +115,18 @@ androidx-core = [
 androidx-compose-runtime = [
     "androidx-activity-compose",
     "androidx-compose-ui",
+    "androidx-compose-ui-util",
+    "androidx-compose-ui-tooling-preview",
     "androidx-compose-foundation",
     "androidx-compose-foundation-layout",
     "androidx-compose-material3",
     "androidx-compose-material3-windowSizeClass",
     "androidx-compose-material-iconsExtended",
-    "androidx-compose-ui-tooling-preview",
+    "androidx-navigation-compose",
     "androidx-hilt-navigation-compose",
     "coil-kt-compose",
     "coil-kt-svg",
-    "google-accompanist-flowlayout",
-    "google-accompanist-insets",
-    "google-accompanist-flowlayout"
+    "google-accompanist-pager"
 ]
 
 androidx-compose-tooling = [

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <declare-styleable name="CarouselView">
-        <attr name="nextItemVisible" format="dimension" />
-        <attr name="currentItemMargin" format="dimension" />
-    </declare-styleable>
-</resources>

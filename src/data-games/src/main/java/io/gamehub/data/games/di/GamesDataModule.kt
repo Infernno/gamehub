@@ -15,5 +15,5 @@ internal interface GamesDataModule {
 
     @Binds
     @Singleton
-    fun bindGameRepository(impl: FakeGameRepository): GameRepository
+    fun bindGameRepository(impl: GameRepositoryImpl): GameRepository
 }

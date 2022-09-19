@@ -5,6 +5,10 @@ plugins {
     id("dagger.hilt.android.plugin")
 }
 
+android {
+    namespace = "io.gamehub.core.network"
+}
+
 dependencies {
     implementation(libs.dagger2.hilt.runtime)
     kapt(libs.dagger2.hilt.compiler)

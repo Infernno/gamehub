@@ -10,5 +10,5 @@ object BuildConfig {
 
     val JVM_TARGET = JavaVersion.VERSION_1_8
 
-    val MINIFY = true
+    val MINIFY = false
 }

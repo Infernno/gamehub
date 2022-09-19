@@ -6,7 +6,7 @@ import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SearchScreen() {
-    Text(text = "Hello world!")
+    Text(text = "Search screen!")
 }
 
 @Preview(showBackground = true)

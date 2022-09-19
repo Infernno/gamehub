@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="see_all">See all</string>
+    <string name="app_name">GameHub</string>
     <string name="copyright">Data provided by RAWG</string>
 </resources>

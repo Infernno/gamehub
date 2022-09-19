@@ -1,4 +1,4 @@
-import java.util.Properties
+import java.util.*
 
 plugins {
     id("gamehub.android.composeApp")
@@ -14,6 +14,8 @@ if (localProperties.exists() && localProperties.isFile) {
 }
 
 android {
+    namespace = "io.gamehub"
+
     defaultConfig {
         applicationId = "io.gamehub.app"
         versionCode = 1
@@ -26,11 +28,14 @@ android {
 
 dependencies {
     implementation(libs.bundles.androidx.core)
+    implementation(libs.androidx.core.splashscreen)
     implementation(libs.google.material)
     implementation(libs.okhttp)
 
     implementation(projects.coreUi)
     implementation(projects.coreNetwork)
+    implementation(projects.coreNavigation)
+
     implementation(projects.featureHome)
     implementation(projects.featureSearch)
 }

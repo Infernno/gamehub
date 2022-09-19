@@ -4,6 +4,10 @@ plugins {
     id("dagger.hilt.android.plugin")
 }
 
+android {
+    namespace = "io.gamehub.data.games"
+}
+
 dependencies  {
     implementation(libs.arrow.core)
     implementation(projects.coreNetwork)
