@@ -49,14 +49,12 @@ private fun DefaultState(
         Slider(items = state.popularGames)
         Spacer(modifier = Modifier.height(20.dp))
         Section(
-            modifier = Modifier.padding(top = 24.dp, bottom = 8.dp),
             titleId = R.string.popular_games,
             items = state.popularGames,
             onExpand = { },
             onItemClicked = { }
         )
         Section(
-            modifier = Modifier.padding(top = 24.dp, bottom = 8.dp),
             titleId = R.string.popular_games,
             items = state.popularGames,
             onExpand = { },

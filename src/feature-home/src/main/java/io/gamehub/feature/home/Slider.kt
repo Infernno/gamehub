@@ -39,9 +39,7 @@ internal fun Slider(
 
     HorizontalPager(
         state = pagerState,
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(height),
+        modifier = Modifier.fillMaxWidth().height(height),
         count = items.size,
         contentPadding = Dimens.horizontalScreenPaddings,
         itemSpacing = 10.dp

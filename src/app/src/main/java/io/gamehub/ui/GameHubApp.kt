@@ -51,6 +51,11 @@ fun GameHubApp() = GameHubTheme {
         NavigationHost(
             navController = navController,
             modifier = Modifier
+                .windowInsetsPadding(
+                    WindowInsets.safeDrawing.only(
+                        WindowInsetsSides.Horizontal
+                    )
+                )
                 .padding(padding)
                 .consumedWindowInsets(padding)
         )

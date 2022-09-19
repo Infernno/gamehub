@@ -37,7 +37,7 @@ internal fun Section(
     onExpand: () -> Unit,
     onItemClicked: (Game) -> Unit
 ) {
-    Column(modifier = modifier.fillMaxWidth()) {
+    Column(modifier = modifier.padding(top = 24.dp, bottom = 8.dp).fillMaxWidth()) {
         SectionHeading(
             modifier = Modifier.padding(
                 start = Dimens.horizontalScreenPadding,

@@ -1,5 +1,4 @@
 import com.android.build.gradle.LibraryExtension
-import io.gamehub.buildlogic.configureCommonDeps
 import io.gamehub.buildlogic.configureCompose
 import org.gradle.api.Plugin
 import org.gradle.api.Project

@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 package io.gamehub.buildlogic
 
 import com.android.build.api.dsl.CommonExtension
@@ -60,14 +62,6 @@ internal fun Project.configureCompose(
 
         add("implementation", libs.findLibrary("dagger2-hilt-runtime").get())
         add("kapt", libs.findLibrary("dagger2-hilt-compiler").get())
-
-        // TODO : Remove this dependency once we upgrade to Android Studio Dolphin b/228889042
-        // These dependencies are currently necessary to render Compose previews
-        /*
-        add(
-            "debugImplementation",
-            libs.findLibrary("androidx.customview.poolingcontainer").get()
-        )*/
     }
 }
 
