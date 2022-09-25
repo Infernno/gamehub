@@ -32,10 +32,10 @@ dependencies {
     implementation(libs.google.material)
     implementation(libs.okhttp)
 
-    implementation(projects.coreUi)
-    implementation(projects.coreNetwork)
-    implementation(projects.coreNavigation)
+    implementation(projects.core.ui)
+    implementation(projects.core.network)
+    implementation(projects.core.navigation)
 
-    implementation(projects.featureHome)
-    implementation(projects.featureSearch)
+    implementation(projects.feature.home)
+    implementation(projects.feature.search)
 }
