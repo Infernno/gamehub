@@ -32,5 +32,9 @@ gradlePlugin {
             id = "gamehub.android.composeApp"
             implementationClass = "AndroidComposeApplicationConventionPlugin"
         }
+        register("kotlinJvmLibrary") {
+            id = "gamehub.kotlin.jvm"
+            implementationClass = "KotlinJvmLibraryPlugin"
+        }
     }
 }
