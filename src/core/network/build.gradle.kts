@@ -16,5 +16,7 @@ dependencies {
     api(libs.bundles.retrofi2)
     implementation(libs.arrow.core)
     implementation(libs.okhttp)
-    implementation(libs.okhttp.logging)
+
+    debugImplementation(libs.chucker.debug)
+    releaseImplementation(libs.chucker.noop)
 }

@@ -61,7 +61,7 @@ interface RawgApi {
      */
     @GET("/games/{game_pk}/screenshots")
     suspend fun getScreenshotsOfTheGame(
-        @Path("game_pk") gamePK: String,
+        @Path("game_pk") slug: String,
         @Query("ordering") ordering: String? = null,
         @Query("page") page: Int? = null,
         @Query("page_size") pageSize: Int? = null,

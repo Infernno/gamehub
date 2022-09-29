@@ -8,7 +8,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Error
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +25,10 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import io.gamehub.core.ui.theme.GameHubTheme
 import io.gamehub.data.games.models.Game
+import io.gamehub.feature.home.widgets.SimpleGamesSection
+import io.gamehub.feature.home.widgets.Slider
+import io.gamehub.feature.home.widgets.UpcomingGamesSection
+import java.time.LocalDate
 
 @Composable
 fun HomeScreen(
@@ -32,6 +39,7 @@ fun HomeScreen(
     when (val currentState = state.value) {
         is Default -> DefaultState(currentState)
         Loading -> LoadingState()
+        Error -> ErrorState()
     }
 }
 
@@ -54,13 +62,18 @@ private fun DefaultState(
         Spacer(modifier = Modifier.height(20.dp))
         Slider(items = state.popularGames)
         Spacer(modifier = Modifier.height(20.dp))
-        Section(
+        UpcomingGamesSection(
+            titleId = R.string.top_upcoming_games,
+            items = state.upcomingGames,
+            onExpand = { },
+            onItemClicked = { })
+        SimpleGamesSection(
             titleId = R.string.popular_games,
             items = state.popularGames,
             onExpand = { },
             onItemClicked = { }
         )
-        Section(
+        SimpleGamesSection(
             titleId = R.string.popular_games,
             items = state.popularGames,
             onExpand = { },
@@ -78,16 +91,32 @@ private fun LoadingState() {
     )
 }
 
+@Composable
+private fun ErrorState() {
+    Icon(
+        modifier = Modifier
+            .fillMaxSize()
+            .wrapContentSize(Alignment.Center),
+        imageVector = Icons.Default.Error,
+        contentDescription = null
+    )
+}
+
 @Preview
 @Composable
 private fun HomeScreenPreview() {
+    val items = listOf(
+        Game("GTA V", "", LocalDate.now()),
+        Game("Witcher 3", "", LocalDate.now()),
+        Game("Batman: Arkham City", "", LocalDate.now())
+    )
+
     GameHubTheme {
-        DefaultState(state = Default(
-            popularGames = listOf(
-                Game("GTA V", ""),
-                Game("Witcher 3", ""),
-                Game("Batman: Arkham City", "")
+        DefaultState(
+            state = Default(
+                popularGames = items,
+                upcomingGames = items
             )
-        ))
+        )
     }
 }

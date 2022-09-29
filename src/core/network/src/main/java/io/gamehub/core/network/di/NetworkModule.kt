@@ -1,16 +1,17 @@
 package io.gamehub.core.network.di
 
+import android.content.Context
+import com.chuckerteam.chucker.api.ChuckerInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import io.gamehub.core.network.BuildConfig
 import io.gamehub.core.network.RawgApiKeyProvider
 import io.gamehub.core.network.api.RawgApi
 import io.gamehub.core.network.internal.addApiKeyInterceptor
 import io.gamehub.core.network.internal.retrofit
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.create
 import javax.inject.Singleton
 
@@ -20,17 +21,14 @@ internal object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(apiKeyProvider: RawgApiKeyProvider): OkHttpClient {
+    fun provideOkHttpClient(
+        apiKeyProvider: RawgApiKeyProvider,
+       @ApplicationContext  context: Context
+    ): OkHttpClient {
         return OkHttpClient
             .Builder()
             .addApiKeyInterceptor(apiKeyProvider)
-            .also {
-                if (BuildConfig.DEBUG) {
-                    val interceptor =
-                        HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
-                    it.addInterceptor(interceptor)
-                }
-            }
+            .addInterceptor(ChuckerInterceptor.Builder(context).build())
             .build()
     }
 

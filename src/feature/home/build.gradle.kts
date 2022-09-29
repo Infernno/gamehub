@@ -8,7 +8,8 @@ android {
 }
 
 dependencies {
-    implementation(libs.arrow.core)
+    implementation(libs.bundles.arrowKt)
+
     implementation(projects.core.ui)
     implementation(projects.data.games)
 }

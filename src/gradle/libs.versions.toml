@@ -8,19 +8,19 @@ kotlinxSerialization = "1.4.0"
 
 # Core libraries
 androidxCore = "1.9.0"
-androidxAppCompat = "1.5.0"
+androidxAppCompat = "1.5.1"
 androidxLifecycle = "2.5.1"
-androidxActivityKtx = "1.5.1"
+androidxActivityKtx = "1.6.0"
 androidxNavigation = "2.5.1"
 androidxCoreSplashscreen = "1.0.0"
 
 googleMaterial = "1.6.1"
-arrowKt = "1.1.2"
+arrowKt = "1.1.3"
 
 # Compose
-androidxCompose = "1.3.0-beta02"
+androidxCompose = "1.3.0-beta03"
 androidxComposeCompiler = "1.3.1"
-androidxComposeMaterial3 = "1.0.0-beta02"
+androidxComposeMaterial3 = "1.0.0-beta03"
 androidxHiltNavigationCompose = "1.0.0"
 coil = "2.2.1"
 google-accompanist = "0.26.3-beta"
@@ -29,6 +29,7 @@ google-accompanist = "0.26.3-beta"
 okhttp = "4.10.0"
 retrofit2 = "2.9.0"
 retrofit2KotlinX = "0.8.0"
+chucker = "3.5.2"
 
 # DI
 dagger2 = "2.43.2"
@@ -56,12 +57,14 @@ androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscree
 google-material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial" }
 
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
-okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+chucker-debug = { group = "com.github.chuckerteam.chucker", name = "library", version.ref = "chucker" }
+chucker-noop = { group = "com.github.chuckerteam.chucker", name = "library-no-op", version.ref = "chucker" }
 
 retrofit2-runtime = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit2" }
 retrofit2-kotlinxSerialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofit2KotlinX" }
 
 arrow-core = { group = "io.arrow-kt", name = "arrow-core", version.ref = "arrowKt" }
+arrow-coroutines = { group = "io.arrow-kt", name = "arrow-fx-coroutines", version.ref = "arrowKt" }
 arrow-retrofit = { group = "io.arrow-kt", name = "arrow-core-retrofit", version.ref = "arrowKt" }
 
 # DI
@@ -148,6 +151,11 @@ retrofi2 = [
 androidx-test = [
     "androidx-test-ext",
     "androidx-test-espresso-core",
+]
+
+arrowKt = [
+    "arrow-core",
+    "arrow-coroutines"
 ]
 
 [plugins]
