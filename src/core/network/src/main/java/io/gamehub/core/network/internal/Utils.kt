@@ -9,7 +9,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 
-internal const val RAWG_API_URL = "https://api.rawg.io/"
+internal const val RAWG_API_URL = "https://api.rawg.io/api/"
 
 internal fun defaultJson() = Json {
     ignoreUnknownKeys = true

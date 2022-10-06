@@ -10,7 +10,6 @@ class AndroidComposeLibraryConventionPlugin : Plugin<Project> {
         with(target) {
             pluginManager.apply {
                 apply("gamehub.android.library")
-                apply("org.jetbrains.kotlin.kapt")
             }
 
             extensions.configure<LibraryExtension> {

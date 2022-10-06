@@ -23,7 +23,7 @@ internal object NetworkModule {
     @Singleton
     fun provideOkHttpClient(
         apiKeyProvider: RawgApiKeyProvider,
-       @ApplicationContext  context: Context
+        @ApplicationContext context: Context
     ): OkHttpClient {
         return OkHttpClient
             .Builder()

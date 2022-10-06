@@ -15,7 +15,7 @@ interface GameRepository {
         stores: String? = null,
         developers: String? = null,
         publishers: String? = null,
-        genres: String? = null,
+        genres: List<String>? = null,
         tags: String? = null,
         creators: String? = null,
         dates: DateRange? = null,

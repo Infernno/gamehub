@@ -1,6 +1,5 @@
 plugins {
-    id("gamehub.android.composeLibrary")
-    id("dagger.hilt.android.plugin")
+    id("gamehub.android.composeFeature")
 }
 
 android {
@@ -8,5 +7,5 @@ android {
 }
 
 dependencies {
-
+    implementation(projects.core.navigation)
 }

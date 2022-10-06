@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.filled.ArrowForwardIos
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -30,6 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import io.gamehub.core.ui.theme.Dimens
 import io.gamehub.core.ui.theme.GameHubTheme
 
@@ -37,7 +39,7 @@ internal val ARROW_ICON_SIZE = 40.dp
 internal val ARROW_PADDING_OFFSET = 5.dp
 
 @Composable
-fun Section(
+fun HubSection(
     modifier: Modifier = Modifier,
     title: String,
     onExpand: () -> Unit,
@@ -45,7 +47,7 @@ fun Section(
 ) {
     Column(
         modifier = modifier
-            .padding(top = 24.dp, bottom = 8.dp)
+            .padding(top = 20.dp, bottom = 5.dp)
             .fillMaxWidth()
     ) {
         SectionHeading(
@@ -69,7 +71,7 @@ fun <T> SectionWithItems(
     items: List<T>,
     itemContent: @Composable LazyItemScope.(item: T) -> Unit,
 ) {
-    Section(
+    HubSection(
         modifier = modifier,
         title = title,
         onExpand = onExpand
@@ -98,8 +100,9 @@ private fun SectionHeading(
     ) {
         Text(
             text = text,
-            style = MaterialTheme.typography.headlineSmall.copy(
-                fontWeight = FontWeight.ExtraBold
+            style = MaterialTheme.typography.titleLarge.copy(
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 19.sp
             ),
             modifier = Modifier.semantics { heading() }
         )
@@ -108,7 +111,7 @@ private fun SectionHeading(
             onClick = onExpand
         ) {
             Icon(
-                imageVector = Icons.Default.ArrowForwardIos,
+                imageVector = Icons.Default.ArrowForward,
                 contentDescription = null
             )
         }
@@ -119,7 +122,7 @@ private fun SectionHeading(
 @Composable
 private fun SectionPreview() {
     GameHubTheme {
-        Section(
+        HubSection(
             title = "Demo Section",
             onExpand = { },
             content = {

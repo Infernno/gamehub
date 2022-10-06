@@ -1,4 +1,4 @@
-package io.gamehub.feature.home.widgets
+package io.gamehub.feature.home.composables
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable
@@ -45,7 +45,9 @@ internal fun UpcomingGamesSection(
         items = items
     ) { item ->
         UpcomingGameCard(
-            modifier = Modifier.width(230.dp).height(190.dp),
+            modifier = Modifier
+                .width(230.dp)
+                .height(190.dp),
             model = item,
             onClick = { onItemClicked(item) }
         )
@@ -59,18 +61,18 @@ private fun UpcomingGameCard(
     onClick: () -> Unit = { },
 ) {
     Surface(
-        modifier = modifier,
         shape = ShapeDefaults.Large,
         shadowElevation = 10.dp
     ) {
-        Box {
+        Box(
+            modifier = modifier.clickable { onClick() },
+        ) {
             AsyncImage(
-                modifier = Modifier.clickable { onClick() },
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(model.imageUrl)
                     .crossfade(true)
                     .build(),
-                contentDescription = null,
+                contentDescription = model.name,
                 placeholder = ColorPainter(color = Color.LightGray),
                 contentScale = ContentScale.Crop,
             )

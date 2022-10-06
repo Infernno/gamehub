@@ -1,5 +1,5 @@
 plugins {
-    id("gamehub.android.library")
+    id("gamehub.android.composeLibrary")
 }
 
 android {

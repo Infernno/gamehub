@@ -1,4 +1,4 @@
-package io.gamehub.feature.home.widgets
+package io.gamehub.feature.home.composables
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.clickable

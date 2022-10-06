@@ -4,6 +4,7 @@ import arrow.core.Either
 import arrow.retrofit.adapter.either.networkhandling.CallError
 import io.gamehub.core.network.dto.BaseResponse
 import io.gamehub.core.network.dto.GameShortDto
+import io.gamehub.core.network.dto.GenreDto
 import io.gamehub.core.network.dto.ScreenshotDto
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -34,7 +35,7 @@ interface RawgApi {
      * You can reverse the sort order adding a hyphen, for example: -released.
      *
      */
-    @GET("/api/games")
+    @GET("games")
     suspend fun getGames(
         @Query("page") page: Int? = null,
         @Query("page_size") pageSize: Int? = null,
@@ -59,11 +60,29 @@ interface RawgApi {
     /**
      * Get screenshots for the game.
      */
-    @GET("/games/{game_pk}/screenshots")
+    @GET("games/{game_pk}/screenshots")
     suspend fun getScreenshotsOfTheGame(
         @Path("game_pk") slug: String,
         @Query("ordering") ordering: String? = null,
         @Query("page") page: Int? = null,
         @Query("page_size") pageSize: Int? = null,
     ): Either<CallError, BaseResponse<ScreenshotDto>>
+
+    /**
+     * Get a list of video game genres.
+     */
+    @GET("genres")
+    suspend fun getGenres(
+        @Query("ordering") ordering: String? = null,
+        @Query("page") page: Int? = null,
+        @Query("page_size") pageSize: Int? = null
+    ): Either<CallError, BaseResponse<GenreDto>>
+
+    /**
+     * Get details of the genre.
+     */
+    @GET("genres/{id}")
+    suspend fun fetchGenreDetails(
+        @Path("id") id: Int
+    ): Either<CallError, GenreDto>
 }

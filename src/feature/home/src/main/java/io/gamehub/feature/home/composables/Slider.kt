@@ -1,4 +1,4 @@
-package io.gamehub.feature.home.widgets
+package io.gamehub.feature.home.composables
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.collectIsDraggedAsState
@@ -39,7 +39,9 @@ internal fun Slider(
 
     HorizontalPager(
         state = pagerState,
-        modifier = Modifier.fillMaxWidth().height(height),
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(height),
         count = items.size,
         contentPadding = Dimens.horizontalScreenPaddings,
         itemSpacing = 10.dp

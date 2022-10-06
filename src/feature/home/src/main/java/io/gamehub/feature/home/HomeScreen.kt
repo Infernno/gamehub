@@ -25,14 +25,16 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import io.gamehub.core.ui.theme.GameHubTheme
 import io.gamehub.data.games.models.Game
-import io.gamehub.feature.home.widgets.SimpleGamesSection
-import io.gamehub.feature.home.widgets.Slider
-import io.gamehub.feature.home.widgets.UpcomingGamesSection
+import io.gamehub.data.genres.models.Genre
+import io.gamehub.feature.home.composables.GenresList
+import io.gamehub.feature.home.composables.SimpleGamesSection
+import io.gamehub.feature.home.composables.Slider
+import io.gamehub.feature.home.composables.UpcomingGamesSection
 import java.time.LocalDate
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = hiltViewModel(),
+    viewModel: HomeViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.collectAsState()
 
@@ -61,7 +63,11 @@ private fun DefaultState(
         )
         Spacer(modifier = Modifier.height(20.dp))
         Slider(items = state.popularGames)
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(5.dp))
+        GenresList(
+            items = state.genres,
+            onItemClicked = {},
+            onExpand = {})
         UpcomingGamesSection(
             titleId = R.string.top_upcoming_games,
             items = state.upcomingGames,
@@ -111,11 +117,18 @@ private fun HomeScreenPreview() {
         Game("Batman: Arkham City", "", LocalDate.now())
     )
 
+    val genres = listOf(
+        Genre(0, "MMORPG", "mmorpg", 1, ""),
+        Genre(1, "Strategy", "strategy", 2, ""),
+        Genre(2, "Shooter", "shooter", 3, "")
+    )
+
     GameHubTheme {
         DefaultState(
             state = Default(
                 popularGames = items,
-                upcomingGames = items
+                upcomingGames = items,
+                genres = genres
             )
         )
     }

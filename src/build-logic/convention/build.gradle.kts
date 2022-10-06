@@ -28,6 +28,10 @@ gradlePlugin {
             id = "gamehub.android.composeLibrary"
             implementationClass = "AndroidComposeLibraryConventionPlugin"
         }
+        register("androidComposeFeature") {
+            id = "gamehub.android.composeFeature"
+            implementationClass = "AndroidComposeFeatureConventionPlugin"
+        }
         register("androidComposeApp") {
             id = "gamehub.android.composeApp"
             implementationClass = "AndroidComposeApplicationConventionPlugin"

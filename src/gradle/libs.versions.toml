@@ -2,7 +2,7 @@
 androidGradlePlugin = "7.3.0"
 
 # Kotlin
-kotlin = "1.7.10"
+kotlin = "1.7.20"
 kotlinxCoroutines = "1.6.4"
 kotlinxSerialization = "1.4.0"
 
@@ -19,11 +19,11 @@ arrowKt = "1.1.3"
 
 # Compose
 androidxCompose = "1.3.0-beta03"
-androidxComposeCompiler = "1.3.1"
+androidxComposeCompiler = "1.3.2"
 androidxComposeMaterial3 = "1.0.0-beta03"
 androidxHiltNavigationCompose = "1.0.0"
-coil = "2.2.1"
-google-accompanist = "0.26.3-beta"
+coil = "2.2.2"
+google-accompanist = "0.26.4-beta"
 
 # Network
 okhttp = "4.10.0"
@@ -32,7 +32,7 @@ retrofit2KotlinX = "0.8.0"
 chucker = "3.5.2"
 
 # DI
-dagger2 = "2.43.2"
+dagger2 = "2.44"
 
 # Testing
 androidxTestJunit = "1.1.3"

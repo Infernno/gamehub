@@ -2,7 +2,6 @@ import java.util.*
 
 plugins {
     id("gamehub.android.composeApp")
-    id("dagger.hilt.android.plugin")
 }
 
 val localProps = Properties()

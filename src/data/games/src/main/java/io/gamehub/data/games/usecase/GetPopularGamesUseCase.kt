@@ -15,14 +15,10 @@ class GetPopularGamesUseCase @Inject constructor(
         page: Int? = null,
         pageSize: Int? = null,
     ): Option<List<Game>> {
-        val start = LocalDate.now()
-        val end = start.plusYears(1)
-
         return gameRepository.getGames(
             page = page,
             pageSize = pageSize,
-            ordering = Ordering.ADDED_REVERSED,
-            dates = DateRange(start, end)
+            ordering = Ordering.RATING,
         ).filter { it.isNotEmpty() }
     }
 }
