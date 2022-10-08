@@ -25,26 +25,27 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import io.gamehub.core.ui.theme.GameHubTheme
-import io.gamehub.core.ui.widgets.SectionWithItems
+import io.gamehub.core.ui.widgets.HubSectionWithItems
 import io.gamehub.data.games.models.Game
-import io.gamehub.feature.home.R
+import io.gamehub.data.games.models.GameWithScreenshots
+import io.gamehub.data.games.models.Screenshot
 import java.time.LocalDate
 
 @Composable
-internal fun UpcomingGamesSection(
+internal fun GamesWithScreenshotsSection(
     modifier: Modifier = Modifier,
     @StringRes titleId: Int,
-    items: List<Game>,
-    onExpand: () -> Unit,
-    onItemClicked: (Game) -> Unit,
+    items: List<GameWithScreenshots>,
+    onExpand: (() -> Unit)? = null,
+    onItemClicked: (GameWithScreenshots) -> Unit,
 ) {
-    SectionWithItems(
+    HubSectionWithItems(
         modifier = modifier,
         title = stringResource(titleId),
         onExpand = onExpand,
         items = items
     ) { item ->
-        UpcomingGameCard(
+        UpcomingGame(
             modifier = Modifier
                 .width(230.dp)
                 .height(190.dp),
@@ -55,9 +56,9 @@ internal fun UpcomingGamesSection(
 }
 
 @Composable
-private fun UpcomingGameCard(
-    model: Game,
+private fun UpcomingGame(
     modifier: Modifier = Modifier,
+    model: GameWithScreenshots,
     onClick: () -> Unit = { },
 ) {
     Surface(
@@ -69,10 +70,11 @@ private fun UpcomingGameCard(
         ) {
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(model.imageUrl)
+                    .data(model.game.imageUrl)
+                    .placeholder(android.R.color.darker_gray)
                     .crossfade(true)
                     .build(),
-                contentDescription = model.name,
+                contentDescription = model.game.name,
                 placeholder = ColorPainter(color = Color.LightGray),
                 contentScale = ContentScale.Crop,
             )
@@ -85,8 +87,8 @@ private fun UpcomingGameCard(
                 Column(
                     modifier = Modifier.padding(8.dp)
                 ) {
-                    Text(model.name, maxLines = 1)
-                    Text(model.releaseDate.toString(), maxLines = 1)
+                    Text(model.game.name, maxLines = 1)
+                    Text(model.game.releaseDate.toString(), maxLines = 1)
                 }
             }
         }
@@ -95,34 +97,25 @@ private fun UpcomingGameCard(
 
 @Preview
 @Composable
-private fun SectionPreview() {
-    GameHubTheme {
-        UpcomingGamesSection(
-            titleId = R.string.top_upcoming_games,
-            items = listOf(
-                Game("GTA V", "", LocalDate.now()),
-                Game("Witcher 3", "", LocalDate.now()),
-                Game("Batman: Arkham City", "", LocalDate.now())
-            ),
-            onExpand = { },
-            onItemClicked = { }
-        )
-    }
-}
-
-@Preview
-@Composable
-private fun SectionPreviewDark() {
+private fun SectionItemPreview() {
     GameHubTheme(darkTheme = true) {
-        UpcomingGamesSection(
-            titleId = R.string.top_upcoming_games,
-            items = listOf(
-                Game("GTA V", "", LocalDate.now()),
-                Game("Witcher 3", "", LocalDate.now()),
-                Game("Batman: Arkham City", "", LocalDate.now())
-            ),
-            onExpand = { },
-            onItemClicked = { }
+        UpcomingGame(
+            model = GameWithScreenshots(
+                game =  Game(
+                    name = "Gotham Knights",
+                    slug = "gotham-knights",
+                    imageUrl = "https://media.rawg.io/media/resize/1920/-/screenshots/dc0/dc002c5dc73e119d7516f8001b5d3ac9.jpg",
+                    releaseDate = LocalDate.of(2022, 10, 6)
+                ),
+                screenshot = listOf(
+                    Screenshot(
+                        imageUrl = "https://media.rawg.io/media/resize/1920/-/screenshots/5df/5df102d9a25d5cb8b307e2f5fc678bdb_ysuuyhG.jpg"
+                    ),
+                    Screenshot(
+                        imageUrl = "https://media.rawg.io/media/resize/1920/-/screenshots/693/693584d2a8bee41ed66b90c8f682d77e.jpg"
+                    )
+                )
+            )
         )
     }
 }

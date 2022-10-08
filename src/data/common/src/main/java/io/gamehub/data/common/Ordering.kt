@@ -4,6 +4,6 @@ enum class Ordering(val code: String) {
     ADDED("added"),
     ADDED_REVERSED("-added"),
 
-    RATING("rating"),
-    RATING_REVERSED("-rating"),
+    METACRITIC("metacritic"),
+    METACRITIC_REVERSED("-metacritic"),
 }

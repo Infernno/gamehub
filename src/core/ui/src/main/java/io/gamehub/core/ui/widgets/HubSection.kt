@@ -14,7 +14,6 @@ import androidx.compose.foundation.lazy.LazyItemScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
-import androidx.compose.material.icons.filled.ArrowForwardIos
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -42,14 +41,10 @@ internal val ARROW_PADDING_OFFSET = 5.dp
 fun HubSection(
     modifier: Modifier = Modifier,
     title: String,
-    onExpand: () -> Unit,
+    onExpand: (() -> Unit)? = null,
     content: @Composable () -> Unit,
 ) {
-    Column(
-        modifier = modifier
-            .padding(top = 20.dp, bottom = 5.dp)
-            .fillMaxWidth()
-    ) {
+    Column(modifier = modifier.fillMaxWidth()) {
         SectionHeading(
             modifier = Modifier.padding(
                 start = Dimens.horizontalScreenPadding,
@@ -64,10 +59,10 @@ fun HubSection(
 }
 
 @Composable
-fun <T> SectionWithItems(
+fun <T> HubSectionWithItems(
     modifier: Modifier = Modifier,
     title: String,
-    onExpand: () -> Unit,
+    onExpand: (() -> Unit)? = null,
     items: List<T>,
     itemContent: @Composable LazyItemScope.(item: T) -> Unit,
 ) {
@@ -91,7 +86,7 @@ fun <T> SectionWithItems(
 private fun SectionHeading(
     modifier: Modifier = Modifier,
     text: String,
-    onExpand: () -> Unit,
+    onExpand: (() -> Unit)? = null,
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
@@ -106,14 +101,16 @@ private fun SectionHeading(
             ),
             modifier = Modifier.semantics { heading() }
         )
-        IconButton(
-            modifier = Modifier.size(ARROW_ICON_SIZE),
-            onClick = onExpand
-        ) {
-            Icon(
-                imageVector = Icons.Default.ArrowForward,
-                contentDescription = null
-            )
+        if (onExpand != null) {
+            IconButton(
+                modifier = Modifier.size(ARROW_ICON_SIZE),
+                onClick = onExpand
+            ) {
+                Icon(
+                    imageVector = Icons.Default.ArrowForward,
+                    contentDescription = null
+                )
+            }
         }
     }
 }
@@ -140,7 +137,7 @@ private fun SectionPreview() {
 @Composable
 private fun SectionWithItemsPreview() {
     GameHubTheme(darkTheme = true) {
-        SectionWithItems(
+        HubSectionWithItems(
             title = "Demo Section",
             onExpand = { },
             items = listOf(

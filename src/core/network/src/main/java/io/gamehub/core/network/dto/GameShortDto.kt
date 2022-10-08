@@ -21,6 +21,6 @@ data class GameShortDto(
     val tba: Boolean,
 
     @SerialName("background_image")
-    val backgroundImage: String,
+    val backgroundImage: String?,
 
 )

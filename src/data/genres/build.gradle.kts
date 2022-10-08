@@ -9,8 +9,8 @@ android {
 }
 
 dependencies  {
-    implementation(libs.arrow.core)
     implementation(projects.core.network)
+    implementation(projects.core.utils)
 
     api(projects.data.common)
 

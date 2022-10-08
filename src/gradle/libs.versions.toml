@@ -15,7 +15,6 @@ androidxNavigation = "2.5.1"
 androidxCoreSplashscreen = "1.0.0"
 
 googleMaterial = "1.6.1"
-arrowKt = "1.1.3"
 
 # Compose
 androidxCompose = "1.3.0-beta03"
@@ -24,6 +23,7 @@ androidxComposeMaterial3 = "1.0.0-beta03"
 androidxHiltNavigationCompose = "1.0.0"
 coil = "2.2.2"
 google-accompanist = "0.26.4-beta"
+orbitmvi = "4.4.0"
 
 # Network
 okhttp = "4.10.0"
@@ -63,10 +63,6 @@ chucker-noop = { group = "com.github.chuckerteam.chucker", name = "library-no-op
 retrofit2-runtime = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit2" }
 retrofit2-kotlinxSerialization = { group = "com.jakewharton.retrofit", name = "retrofit2-kotlinx-serialization-converter", version.ref = "retrofit2KotlinX" }
 
-arrow-core = { group = "io.arrow-kt", name = "arrow-core", version.ref = "arrowKt" }
-arrow-coroutines = { group = "io.arrow-kt", name = "arrow-fx-coroutines", version.ref = "arrowKt" }
-arrow-retrofit = { group = "io.arrow-kt", name = "arrow-core-retrofit", version.ref = "arrowKt" }
-
 # DI
 dagger2-hilt-runtime = { group = "com.google.dagger", name = "hilt-android", version.ref = "dagger2" }
 dagger2-hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "dagger2" }
@@ -96,6 +92,9 @@ coil-kt-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "
 coil-kt-svg = { group = "io.coil-kt", name = "coil-svg", version.ref = "coil" }
 
 google-accompanist-pager = { module = "com.google.accompanist:accompanist-pager", version.ref = "google-accompanist" }
+
+orbit-mvi-viewmodel = { module = "org.orbit-mvi:orbit-viewmodel", version.ref = "orbitmvi" }
+orbit-mvi-compose = { module = "org.orbit-mvi:orbit-compose", version.ref = "orbitmvi" }
 
 # Tests
 androidx-test-ext = { group = "androidx.test.ext", name = "junit", version.ref = "androidxTestJunit" }
@@ -132,6 +131,11 @@ androidx-compose-runtime = [
     "google-accompanist-pager"
 ]
 
+orbit-mvi = [
+    "orbit-mvi-viewmodel",
+    "orbit-mvi-compose"
+]
+
 androidx-compose-tooling = [
     "androidx-compose-ui-tooling",
     "androidx-compose-ui-testManifest"
@@ -145,17 +149,11 @@ retrofi2 = [
     "retrofit2-runtime",
     "retrofit2-kotlinxSerialization",
     "kotlinx-serialization",
-    "arrow-retrofit"
 ]
 
 androidx-test = [
     "androidx-test-ext",
     "androidx-test-espresso-core",
-]
-
-arrowKt = [
-    "arrow-core",
-    "arrow-coroutines"
 ]
 
 [plugins]

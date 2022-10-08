@@ -1,6 +1,5 @@
 package io.gamehub.data.games.repository
 
-import arrow.core.Option
 import io.gamehub.core.network.api.RawgApi
 import io.gamehub.data.common.Ordering
 import io.gamehub.data.games.models.Screenshot
@@ -15,16 +14,14 @@ internal class ScreenshotRepositoryImpl @Inject constructor(
         ordering: Ordering?,
         page: Int?,
         pageSize: Int?
-    ): Option<List<Screenshot>> {
+    ): List<Screenshot> {
         return rawgApi.getScreenshotsOfTheGame(
             slug = slug,
             ordering = ordering?.code,
             page = page,
             pageSize = pageSize
-        ).map { response ->
-            response.results.map {
-                it.toDomain()
-            }
-        }.orNone()
+        ).results.map {
+            it.toDomain()
+        }
     }
 }

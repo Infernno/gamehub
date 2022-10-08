@@ -1,6 +1,5 @@
 package io.gamehub.data.genres.repositories
 
-import arrow.core.Option
 import io.gamehub.core.network.api.RawgApi
 import io.gamehub.data.common.Ordering
 import io.gamehub.data.genres.models.Genre
@@ -14,15 +13,13 @@ internal class GenreRepositoryImpl @Inject constructor(
         ordering: Ordering,
         page: Int?,
         pageSize: Int?
-    ): Option<List<Genre>> {
+    ): List<Genre> {
         return rawgApi.getGenres(
             ordering = ordering.code,
             page = page,
             pageSize = pageSize
-        ).map { response ->
-            response.results.map {
-                it.toDomain()
-            }
-        }.orNone()
+        ).results.map { dto ->
+            dto.toDomain()
+        }
     }
 }

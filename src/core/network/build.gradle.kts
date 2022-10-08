@@ -14,7 +14,6 @@ dependencies {
     kapt(libs.dagger2.hilt.compiler)
 
     api(libs.bundles.retrofi2)
-    implementation(libs.arrow.core)
     implementation(libs.okhttp)
 
     debugImplementation(libs.chucker.debug)

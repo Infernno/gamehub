@@ -20,25 +20,22 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
-import io.gamehub.core.ui.theme.GameHubTheme
-import io.gamehub.core.ui.widgets.SectionWithItems
+import io.gamehub.core.ui.widgets.HubSectionWithItems
 import io.gamehub.data.games.models.Game
 import io.gamehub.feature.home.R
-import java.time.LocalDate
 
 @Composable
-internal fun SimpleGamesSection(
+internal fun GamesSection(
     modifier: Modifier = Modifier,
     @StringRes titleId: Int,
     items: List<Game>,
-    onExpand: () -> Unit,
+    onExpand: (() -> Unit)? = null,
     onItemClicked: (Game) -> Unit,
 ) {
-    SectionWithItems(
+    HubSectionWithItems(
         modifier = modifier,
         title = stringResource(id = titleId),
         onExpand = onExpand,
@@ -54,6 +51,7 @@ internal fun SimpleGamesSection(
                     modifier = Modifier.clickable { onItemClicked(model) },
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(model.imageUrl)
+                        .placeholder(android.R.color.darker_gray)
                         .crossfade(true)
                         .build(),
                     contentDescription = null,
@@ -71,23 +69,5 @@ internal fun SimpleGamesSection(
                 textAlign = TextAlign.Center
             )
         }
-    }
-}
-
-
-@Preview
-@Composable
-private fun SectionPreview() {
-    GameHubTheme {
-        SimpleGamesSection(
-            titleId = R.string.popular_games,
-            items = listOf(
-                Game("GTA V", "", LocalDate.now()),
-                Game("Witcher 3", "", LocalDate.now()),
-                Game("Batman: Arkham City", "", LocalDate.now())
-            ),
-            onExpand = { },
-            onItemClicked = { }
-        )
     }
 }

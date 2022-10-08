@@ -1,4 +1,5 @@
 import com.android.build.gradle.LibraryExtension
+import io.gamehub.buildlogic.addDependencyFromVersionCatalog
 import io.gamehub.buildlogic.configureDaggerHilt
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -16,6 +17,10 @@ class AndroidComposeFeatureConventionPlugin : Plugin<Project> {
 
             extensions.configure<LibraryExtension> {
                 configureDaggerHilt()
+            }
+
+            addDependencyFromVersionCatalog { libs ->
+                add("implementation", libs.findBundle("orbit-mvi").get())
             }
         }
     }

@@ -1,4 +1,5 @@
 <resources>
     <string name="popular_games">Popular games</string>
-    <string name="top_upcoming_games">Top upcoming games</string>
+    <string name="new_games">New games</string>
+    <string name="coming_in_a_month">Coming in a month</string>
 </resources>

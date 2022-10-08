@@ -22,16 +22,18 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import io.gamehub.core.ui.theme.GameHubTheme
-import io.gamehub.core.ui.widgets.SectionWithItems
+import io.gamehub.core.ui.widgets.HubSectionWithItems
 import io.gamehub.data.genres.models.Genre
 
 @Composable
-internal fun GenresList(
+internal fun GenresSection(
+    modifier: Modifier = Modifier,
     items: List<Genre>,
     onItemClicked: (Genre) -> Unit,
-    onExpand: () -> Unit
+    onExpand: (() -> Unit)? = null,
 ) {
-    SectionWithItems(
+    HubSectionWithItems(
+        modifier = modifier,
         title = "Genres",
         onExpand = onExpand,
         items = items
@@ -47,6 +49,7 @@ internal fun GenresList(
                 modifier = Modifier.fillMaxWidth(),
                 model = ImageRequest.Builder(LocalContext.current)
                     .data(item.imageUrl)
+                    .placeholder(android.R.color.darker_gray)
                     .crossfade(true)
                     .build(),
                 contentDescription = item.name,
@@ -64,19 +67,5 @@ internal fun GenresList(
                 textAlign = TextAlign.Center
             )
         }
-    }
-}
-
-@Preview
-@Composable
-private fun GenresListPreview() {
-    GameHubTheme {
-        val genres = listOf(
-            Genre(0, "MMORPG", "mmorpg", 1, ""),
-            Genre(1, "Strategy", "strategy", 2, ""),
-            Genre(2, "Shooter", "shooter", 3, "")
-        )
-
-        GenresList(items = genres, onItemClicked = { }, onExpand = { })
     }
 }

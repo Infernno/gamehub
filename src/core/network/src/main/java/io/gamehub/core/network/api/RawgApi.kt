@@ -1,7 +1,5 @@
 package io.gamehub.core.network.api
 
-import arrow.core.Either
-import arrow.retrofit.adapter.either.networkhandling.CallError
 import io.gamehub.core.network.dto.BaseResponse
 import io.gamehub.core.network.dto.GameShortDto
 import io.gamehub.core.network.dto.GenreDto
@@ -55,7 +53,7 @@ interface RawgApi {
         @Query("exclude_parents") excludeParents: Boolean? = null,
         @Query("exclude_game_series") excludeGameSeries: Boolean? = null,
         @Query("ordering") ordering: String? = null,
-    ): Either<CallError, BaseResponse<GameShortDto>>
+    ): BaseResponse<GameShortDto>
 
     /**
      * Get screenshots for the game.
@@ -66,7 +64,7 @@ interface RawgApi {
         @Query("ordering") ordering: String? = null,
         @Query("page") page: Int? = null,
         @Query("page_size") pageSize: Int? = null,
-    ): Either<CallError, BaseResponse<ScreenshotDto>>
+    ): BaseResponse<ScreenshotDto>
 
     /**
      * Get a list of video game genres.
@@ -76,7 +74,7 @@ interface RawgApi {
         @Query("ordering") ordering: String? = null,
         @Query("page") page: Int? = null,
         @Query("page_size") pageSize: Int? = null
-    ): Either<CallError, BaseResponse<GenreDto>>
+    ): BaseResponse<GenreDto>
 
     /**
      * Get details of the genre.
@@ -84,5 +82,5 @@ interface RawgApi {
     @GET("genres/{id}")
     suspend fun fetchGenreDetails(
         @Path("id") id: Int
-    ): Either<CallError, GenreDto>
+    ): GenreDto
 }

@@ -30,6 +30,7 @@ import kotlinx.coroutines.isActive
 @Composable
 @OptIn(ExperimentalPagerApi::class)
 internal fun Slider(
+    modifier: Modifier = Modifier,
     items: List<Game>,
     onItemClicked: (Game) -> Unit = { },
     height: Dp = 200.dp
@@ -39,7 +40,7 @@ internal fun Slider(
 
     HorizontalPager(
         state = pagerState,
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(height),
         count = items.size,
@@ -79,6 +80,7 @@ private fun SliderItem(
             modifier = Modifier.clickable { onClick() },
             model = ImageRequest.Builder(LocalContext.current)
                 .data(model.imageUrl)
+                .placeholder(android.R.color.darker_gray)
                 .crossfade(true)
                 .build(),
             contentDescription = null,
