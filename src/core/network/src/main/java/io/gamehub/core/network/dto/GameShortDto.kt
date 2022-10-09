@@ -18,9 +18,14 @@ data class GameShortDto(
     val released: String?,
 
     @SerialName("tba")
-    val tba: Boolean,
+    val tba: Boolean?,
 
     @SerialName("background_image")
     val backgroundImage: String?,
 
+    @SerialName("genres")
+    val genres: List<GenreShortDto>?,
+
+    @SerialName("short_screenshots")
+    val screenshots: List<ScreenshotShortDto>?,
 )

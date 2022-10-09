@@ -18,7 +18,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "GameHub"
 include(":app")
-include(":core:navigation")
 include(":core:network")
 include(":core:ui")
 include(":core:utils")
@@ -28,3 +27,5 @@ include(":data:genres")
 include(":feature:home")
 include(":feature:search")
 include(":feature:release-calendar")
+include(":feature:game-details")
+include(":core:navigation")

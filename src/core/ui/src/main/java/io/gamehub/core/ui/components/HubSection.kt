@@ -1,4 +1,4 @@
-package io.gamehub.core.ui.widgets
+package io.gamehub.core.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,13 +24,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.semantics.heading
-import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import io.gamehub.core.ui.theme.Dimens
 import io.gamehub.core.ui.theme.GameHubTheme
 
@@ -41,6 +38,7 @@ internal val ARROW_PADDING_OFFSET = 5.dp
 fun HubSection(
     modifier: Modifier = Modifier,
     title: String,
+    subtitle: String? = null,
     onExpand: (() -> Unit)? = null,
     content: @Composable () -> Unit,
 ) {
@@ -51,9 +49,10 @@ fun HubSection(
                 end = Dimens.horizontalScreenPadding - ARROW_ICON_SIZE / 2 + ARROW_PADDING_OFFSET
             ),
             text = title,
+            subtitle = subtitle,
             onExpand = onExpand
         )
-        Spacer(Modifier.height(8.dp))
+        Spacer(Modifier.height(20.dp))
         content()
     }
 }
@@ -62,6 +61,7 @@ fun HubSection(
 fun <T> HubSectionWithItems(
     modifier: Modifier = Modifier,
     title: String,
+    subtitle: String? = null,
     onExpand: (() -> Unit)? = null,
     items: List<T>,
     itemContent: @Composable LazyItemScope.(item: T) -> Unit,
@@ -69,6 +69,7 @@ fun <T> HubSectionWithItems(
     HubSection(
         modifier = modifier,
         title = title,
+        subtitle = subtitle,
         onExpand = onExpand
     ) {
         LazyRow(
@@ -86,6 +87,7 @@ fun <T> HubSectionWithItems(
 private fun SectionHeading(
     modifier: Modifier = Modifier,
     text: String,
+    subtitle: String? = null,
     onExpand: (() -> Unit)? = null,
 ) {
     Row(
@@ -93,14 +95,21 @@ private fun SectionHeading(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = modifier.fillMaxWidth()
     ) {
-        Text(
-            text = text,
-            style = MaterialTheme.typography.titleLarge.copy(
-                fontWeight = FontWeight.SemiBold,
-                fontSize = 19.sp
-            ),
-            modifier = Modifier.semantics { heading() }
-        )
+        Column {
+            Text(
+                text = text,
+                style = MaterialTheme.typography.titleLarge.copy(
+                    fontWeight = FontWeight.SemiBold,
+                ),
+            )
+            if(!subtitle.isNullOrBlank()) {
+                Text(
+                    text = subtitle,
+                    style = MaterialTheme.typography.labelLarge,
+                    color = Color.LightGray
+                )
+            }
+        }
         if (onExpand != null) {
             IconButton(
                 modifier = Modifier.size(ARROW_ICON_SIZE),
@@ -120,7 +129,8 @@ private fun SectionHeading(
 private fun SectionPreview() {
     GameHubTheme {
         HubSection(
-            title = "Demo Section",
+            title = "This is a title",
+            subtitle = "This is a subtitle",
             onExpand = { },
             content = {
                 Text(
@@ -138,7 +148,8 @@ private fun SectionPreview() {
 private fun SectionWithItemsPreview() {
     GameHubTheme(darkTheme = true) {
         HubSectionWithItems(
-            title = "Demo Section",
+            title = "This is a title",
+            subtitle = "This is a subtitle",
             onExpand = { },
             items = listOf(
                 Color.Blue,
@@ -156,7 +167,7 @@ private fun SectionWithItemsPreview() {
                         .fillMaxSize()
                         .wrapContentSize(Alignment.Center),
                     textAlign = TextAlign.Center,
-                    text = "Hello world!"
+                    text = "Hello world!",
                 )
             }
         }

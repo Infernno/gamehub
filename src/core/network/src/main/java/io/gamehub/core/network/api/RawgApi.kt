@@ -1,8 +1,9 @@
 package io.gamehub.core.network.api
 
 import io.gamehub.core.network.dto.BaseResponse
+import io.gamehub.core.network.dto.GameDetailsDto
 import io.gamehub.core.network.dto.GameShortDto
-import io.gamehub.core.network.dto.GenreDto
+import io.gamehub.core.network.dto.GenreFullDto
 import io.gamehub.core.network.dto.ScreenshotDto
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -52,8 +53,18 @@ interface RawgApi {
         @Query("exclude_additions") excludeAdditions: Boolean? = null,
         @Query("exclude_parents") excludeParents: Boolean? = null,
         @Query("exclude_game_series") excludeGameSeries: Boolean? = null,
+        @Query("metacritic") metacritic: String? = null,
         @Query("ordering") ordering: String? = null,
     ): BaseResponse<GameShortDto>
+
+    /**
+     * Get details of the game.
+     *
+     */
+    @GET("/api/games/{id}")
+    suspend fun getGameDetails(
+        @Path("id") id: String
+    ): GameDetailsDto
 
     /**
      * Get screenshots for the game.
@@ -74,7 +85,7 @@ interface RawgApi {
         @Query("ordering") ordering: String? = null,
         @Query("page") page: Int? = null,
         @Query("page_size") pageSize: Int? = null
-    ): BaseResponse<GenreDto>
+    ): BaseResponse<GenreFullDto>
 
     /**
      * Get details of the genre.
@@ -82,5 +93,5 @@ interface RawgApi {
     @GET("genres/{id}")
     suspend fun fetchGenreDetails(
         @Path("id") id: Int
-    ): GenreDto
+    ): GenreFullDto
 }

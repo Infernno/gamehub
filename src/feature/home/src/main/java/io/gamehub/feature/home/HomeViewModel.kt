@@ -9,9 +9,8 @@ import io.gamehub.data.games.usecase.GetNewGamesUseCase
 import io.gamehub.data.games.usecase.GetPopularGamesUseCase
 import io.gamehub.data.games.usecase.GetUpcomingGamesUseCase
 import io.gamehub.data.genres.usecase.GetGenresUseCase
+import io.gamehub.feature.home.models.CategoriesSection
 import io.gamehub.feature.home.models.GamesSection
-import io.gamehub.feature.home.models.GamesWithScreenshotsSection
-import io.gamehub.feature.home.models.GenresSection
 import io.gamehub.feature.home.models.SliderSection
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -30,9 +29,9 @@ class HomeViewModel @Inject constructor(
     private val upcomingGamesUseCase: GetUpcomingGamesUseCase,
     private val getNewGamesUseCase: GetNewGamesUseCase,
     private val genresUseCase: GetGenresUseCase
-) : ViewModel(), ContainerHost<HomeState, HomeSideEffect> {
+) : ViewModel(), ContainerHost<HomeState, Nothing> {
 
-    override val container = container<HomeState, HomeSideEffect>(Loading)
+    override val container = container<HomeState, Nothing>(Loading)
 
     init {
         viewModelScope.launch {
@@ -61,7 +60,7 @@ class HomeViewModel @Inject constructor(
 
             val recentReleasesTask = async { getNewGamesUseCase.invoke() }
 
-            awaitAll(bestThisYearTask, genresTask,  recentReleasesTask, recentReleasesTask)
+            awaitAll(bestThisYearTask, genresTask, recentReleasesTask, recentReleasesTask)
 
             val bestOfThisYear = bestThisYearTask.await()
             val genres = genresTask.await()
@@ -71,13 +70,20 @@ class HomeViewModel @Inject constructor(
             Default(
                 listOf(
                     SliderSection(bestOfThisYear),
-                    GenresSection(genres),
+                    CategoriesSection(
+                        titleId = R.string.genres,
+                        items = genres
+                    ),
                     GamesSection(
                         titleId = R.string.coming_in_a_month,
                         items = comingThisMonth
                     ),
-                    GamesWithScreenshotsSection(
-                        titleId = R.string.new_games,
+                    GamesSection(
+                        titleId = R.string.new_arrivals,
+                        items = newGames
+                    ),
+                    GamesSection(
+                        titleId = R.string.new_arrivals,
                         items = newGames
                     )
                 )

@@ -11,10 +11,11 @@ data class DateRange(
     override fun iterator(): Iterator<LocalDate> = DateIterator(start, endInclusive, stepDays)
 
     override fun toString(): String {
-        return "$start,$endInclusive"
+        return if(start == endInclusive)
+            start.toString()
+        else
+            "$start,$endInclusive"
     }
-
-    infix fun step(days: Long) = DateRange(start, endInclusive, days)
 
     internal class DateIterator(
         startDate: LocalDate,
@@ -36,5 +37,9 @@ data class DateRange(
 
     companion object {
         val EMPTY = DateRange(LocalDate.MIN, LocalDate.MIN)
+
+        fun single(date: LocalDate): DateRange {
+            return DateRange(date, date)
+        }
     }
 }

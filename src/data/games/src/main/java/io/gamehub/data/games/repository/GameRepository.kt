@@ -2,7 +2,8 @@ package io.gamehub.data.games.repository
 
 import io.gamehub.data.common.DateRange
 import io.gamehub.data.common.Ordering
-import io.gamehub.data.games.models.Game
+import io.gamehub.data.games.models.GameDetails
+import io.gamehub.data.games.models.GameShort
 
 interface GameRepository {
 
@@ -13,5 +14,14 @@ interface GameRepository {
         genres: List<String>? = null,
         dates: DateRange? = null,
         ordering: Ordering? = null,
-    ): List<Game>
+        metacritic: IntRange? = null
+    ): List<GameShort>
+
+    suspend fun getGameDetails(
+        id: Int
+    ): GameDetails
+
+    suspend fun getGameDetails(
+        slug: String
+    ): GameDetails
 }

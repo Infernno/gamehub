@@ -1,9 +1,7 @@
 package io.gamehub.data.common
 
 enum class Ordering(val code: String) {
-    ADDED("added"),
     ADDED_REVERSED("-added"),
-
-    METACRITIC("metacritic"),
+    RELEASED_REVERSED("-released"),
     METACRITIC_REVERSED("-metacritic"),
 }

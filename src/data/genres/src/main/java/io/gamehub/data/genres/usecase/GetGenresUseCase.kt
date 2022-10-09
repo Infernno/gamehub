@@ -13,7 +13,7 @@ class GetGenresUseCase @Inject constructor(
         pageSize: Int? = null,
     ): List<Genre> {
         return repository.getGenres(
-            ordering = Ordering.ADDED,
+            ordering = Ordering.ADDED_REVERSED,
             page = page,
             pageSize = pageSize
         )

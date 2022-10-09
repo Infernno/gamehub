@@ -27,6 +27,7 @@ android {
 
 dependencies {
     implementation(libs.bundles.androidx.core)
+    implementation(libs.androidx.metrics)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.google.material)
     implementation(libs.okhttp)
@@ -37,4 +38,5 @@ dependencies {
 
     implementation(projects.feature.home)
     implementation(projects.feature.search)
+    implementation(projects.feature.gameDetails)
 }

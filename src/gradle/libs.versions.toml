@@ -13,11 +13,12 @@ androidxLifecycle = "2.5.1"
 androidxActivityKtx = "1.6.0"
 androidxNavigation = "2.5.1"
 androidxCoreSplashscreen = "1.0.0"
+androidxMetrics = "1.0.0-alpha03"
 
 googleMaterial = "1.6.1"
 
 # Compose
-androidxCompose = "1.3.0-beta03"
+androidxCompose = "1.3.0-rc01"
 androidxComposeCompiler = "1.3.2"
 androidxComposeMaterial3 = "1.0.0-beta03"
 androidxHiltNavigationCompose = "1.0.0"
@@ -52,10 +53,12 @@ androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref
 androidx-lifecycle-runtime-ktx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
 
+androidx-metrics = { group = "androidx.metrics", name = "metrics-performance", version.ref = "androidxMetrics" }
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashscreen" }
 
 google-material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial" }
 
+# Network
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
 chucker-debug = { group = "com.github.chuckerteam.chucker", name = "library", version.ref = "chucker" }
 chucker-noop = { group = "com.github.chuckerteam.chucker", name = "library-no-op", version.ref = "chucker" }

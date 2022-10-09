@@ -1,5 +1,7 @@
 <resources>
+    <string name="genres">Categories</string>
     <string name="popular_games">Popular games</string>
-    <string name="new_games">New games</string>
+    <string name="new_arrivals">New arrivals</string>
     <string name="coming_in_a_month">Coming in a month</string>
+    <string name="release_date">Release date: %1$s</string>
 </resources>

@@ -7,5 +7,4 @@ android {
 }
 
 dependencies {
-    implementation(projects.core.navigation)
 }

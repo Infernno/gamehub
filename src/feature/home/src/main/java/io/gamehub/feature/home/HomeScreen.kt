@@ -21,28 +21,27 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import io.gamehub.data.games.models.Game
+import io.gamehub.data.games.models.GameShort
 import io.gamehub.data.genres.models.Genre
-import io.gamehub.feature.home.composables.GamesSection
-import io.gamehub.feature.home.composables.GamesWithScreenshotsSection
-import io.gamehub.feature.home.composables.GenresSection
+import io.gamehub.feature.home.composables.CategoriesUiSection
+import io.gamehub.feature.home.composables.GamesUiSection
 import io.gamehub.feature.home.composables.Slider
+import io.gamehub.feature.home.models.CategoriesSection
 import io.gamehub.feature.home.models.GamesSection
-import io.gamehub.feature.home.models.GamesWithScreenshotsSection
-import io.gamehub.feature.home.models.GenresSection
 import io.gamehub.feature.home.models.SliderSection
 import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
+    navigateToDetails: (String) -> Unit
 ) {
     val state by viewModel.collectAsState()
 
     when (val currentState = state) {
         is Default -> DefaultState(
             state = currentState,
-            openGameDetails = { },
+            openGameDetails = { navigateToDetails(it.slug) },
             openGamesOfGenre = { },
         )
         Loading -> LoadingState()
@@ -53,7 +52,7 @@ fun HomeScreen(
 @Composable
 private fun DefaultState(
     state: Default,
-    openGameDetails: (Game) -> Unit,
+    openGameDetails: (GameShort) -> Unit,
     openGamesOfGenre: (Genre) -> Unit,
 ) {
     LazyColumn(
@@ -77,25 +76,22 @@ private fun DefaultState(
             )
 
             when (val section = state.sections[index]) {
-                is GamesSection -> GamesSection(
-                    modifier = modifier,
-                    titleId = section.titleId,
+                is SliderSection -> Slider(
+                    modifier = modifier.height(200.dp),
                     items = section.items,
                     onItemClicked = { openGameDetails(it) }
                 )
-                is GamesWithScreenshotsSection -> GamesWithScreenshotsSection(
+                is CategoriesSection -> CategoriesUiSection(
                     modifier = modifier,
                     titleId = section.titleId,
-                    items = section.items,
-                    onItemClicked = { openGameDetails(it.game) }
-                )
-                is GenresSection -> GenresSection(
-                    modifier = modifier,
+                    subtitleId = section.subtitleId,
                     items = section.items,
                     onItemClicked = { openGamesOfGenre(it) }
                 )
-                is SliderSection -> Slider(
+                is GamesSection -> GamesUiSection(
                     modifier = modifier,
+                    titleId = section.titleId,
+                    subtitleId = section.subtitleId,
                     items = section.items,
                     onItemClicked = { openGameDetails(it) }
                 )

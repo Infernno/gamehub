@@ -1,6 +1,5 @@
 package io.gamehub.ui
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.consumedWindowInsets
 import androidx.compose.foundation.layout.padding
@@ -9,19 +8,33 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import io.gamehub.core.ui.theme.GameHubTheme
-import io.gamehub.feature.home.HomeScreen
+import io.gamehub.navigation.HubBottomBar
+import io.gamehub.navigation.HubNavHost
 
 @Composable
 @OptIn(
     ExperimentalMaterial3Api::class,
     ExperimentalLayoutApi::class,
 )
-fun GameHubApp() = GameHubTheme {
-    Scaffold { padding ->
-        Box(modifier = Modifier
-            .padding(padding)
-            .consumedWindowInsets(padding)) {
-            HomeScreen()
+fun GameHubApp(
+    appState: GameHubAppState = rememberHubAppState()
+) = GameHubTheme {
+    Scaffold(
+        bottomBar = {
+            HubBottomBar(
+                destinations = appState.topLevelDestinations,
+                onNavigateToDestination = appState::navigate,
+                currentDestination = appState.currentDestination
+            )
         }
+    ) { padding ->
+        HubNavHost(
+            navController = appState.navController,
+            onBackClick = appState::onBackClick,
+            onNavigateToDestination = appState::navigate,
+            modifier = Modifier
+                .padding(padding)
+                .consumedWindowInsets(padding)
+        )
     }
 }

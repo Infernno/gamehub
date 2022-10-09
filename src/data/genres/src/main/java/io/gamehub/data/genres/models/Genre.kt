@@ -1,6 +1,6 @@
 package io.gamehub.data.genres.models
 
-import io.gamehub.core.network.dto.GenreDto
+import io.gamehub.core.network.dto.GenreFullDto
 
 data class Genre(
     val id: Int,
@@ -10,7 +10,7 @@ data class Genre(
     val imageUrl: String
 )
 
-internal fun GenreDto.toDomain(): Genre {
+internal fun GenreFullDto.toDomain(): Genre {
     return Genre(
         id = id,
         name = name,

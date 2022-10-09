@@ -23,7 +23,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import io.gamehub.core.ui.theme.Dimens
-import io.gamehub.data.games.models.Game
+import io.gamehub.data.games.models.GameShort
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 
@@ -31,8 +31,8 @@ import kotlinx.coroutines.isActive
 @OptIn(ExperimentalPagerApi::class)
 internal fun Slider(
     modifier: Modifier = Modifier,
-    items: List<Game>,
-    onItemClicked: (Game) -> Unit = { },
+    items: List<GameShort>,
+    onItemClicked: (GameShort) -> Unit = { },
     height: Dp = 200.dp
 ) {
     val pagerState = rememberPagerState()
@@ -56,7 +56,8 @@ internal fun Slider(
     if (!isDragged) {
         LaunchedEffect(Unit) {
             while (isActive) {
-                delay(3000)
+                delay(4000)
+                // This gets cancelled automatically on touch
                 pagerState.animateScrollToPage(
                     page = (pagerState.currentPage + 1) % (pagerState.pageCount),
                 )
@@ -67,20 +68,19 @@ internal fun Slider(
 
 @Composable
 private fun SliderItem(
-    model: Game,
+    model: GameShort,
     modifier: Modifier = Modifier,
     onClick: () -> Unit = { }
 ) {
     Surface(
         modifier = modifier.fillMaxSize(),
-        shape = ShapeDefaults.Large,
+        shape = ShapeDefaults.ExtraLarge,
         shadowElevation = 10.dp,
     ) {
         AsyncImage(
             modifier = Modifier.clickable { onClick() },
             model = ImageRequest.Builder(LocalContext.current)
                 .data(model.imageUrl)
-                .placeholder(android.R.color.darker_gray)
                 .crossfade(true)
                 .build(),
             contentDescription = null,
