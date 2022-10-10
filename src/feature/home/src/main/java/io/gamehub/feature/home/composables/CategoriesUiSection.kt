@@ -18,13 +18,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.ColorPainter
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
+import io.gamehub.core.ui.components.HubAsyncImage
 import io.gamehub.core.ui.components.HubSectionWithItems
 import io.gamehub.data.genres.models.Genre
 
@@ -50,19 +47,14 @@ internal fun CategoriesUiSection(
             modifier = Modifier.width(CELL_SIZE),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            AsyncImage(
+            HubAsyncImage(
                 modifier = Modifier
                     .size(CELL_SIZE)
                     .clip(ShapeDefaults.ExtraLarge)
                     .shadow(10.dp)
                     .clickable { onItemClicked(item) },
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(item.imageUrl)
-                    .crossfade(true)
-                    .build(),
-                contentDescription = null,
+                data = item.imageUrl,
                 placeholder = ColorPainter(color = Color.LightGray),
-                contentScale = ContentScale.Crop,
             )
             Spacer(modifier = Modifier.height(6.dp))
             Text(

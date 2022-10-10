@@ -24,8 +24,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import io.gamehub.data.games.models.GameShort
 import io.gamehub.data.genres.models.Genre
 import io.gamehub.feature.home.composables.CategoriesUiSection
+import io.gamehub.feature.home.composables.GamesSlider
 import io.gamehub.feature.home.composables.GamesUiSection
-import io.gamehub.feature.home.composables.Slider
 import io.gamehub.feature.home.models.CategoriesSection
 import io.gamehub.feature.home.models.GamesSection
 import io.gamehub.feature.home.models.SliderSection
@@ -76,8 +76,8 @@ private fun DefaultState(
             )
 
             when (val section = state.sections[index]) {
-                is SliderSection -> Slider(
-                    modifier = modifier.height(200.dp),
+                is SliderSection -> GamesSlider(
+                    modifier = modifier.fillMaxWidth().height(200.dp),
                     items = section.items,
                     onItemClicked = { openGameDetails(it) }
                 )

@@ -9,6 +9,8 @@ import io.gamehub.feature.gamedetails.navigation.GameDetailsNavigationDestinatio
 import io.gamehub.feature.gamedetails.navigation.gameDetailsGraph
 import io.gamehub.feature.home.navigation.HomeNavigationDestination
 import io.gamehub.feature.home.navigation.homeGraph
+import io.gamehub.feature.releasecalendar.navigation.releaseCalendarGraph
+import io.gamehub.feature.search.navigation.searchGraph
 
 @Composable
 fun HubNavHost(
@@ -29,9 +31,19 @@ fun HubNavHost(
                     GameDetailsNavigationDestination,
                     GameDetailsNavigationDestination.createNavigationRoute(slug)
                 )
+            },
+            nestedGraphs = {
+                gameDetailsGraph()
             }
-        ) {
-            gameDetailsGraph()
-        }
+        )
+        releaseCalendarGraph(
+            nestedGraphs = {
+             //   gameDetailsGraph()
+            }
+        )
+        searchGraph(
+            nestedGraphs = {
+            }
+        )
     }
 }

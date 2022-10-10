@@ -39,4 +39,5 @@ dependencies {
     implementation(projects.feature.home)
     implementation(projects.feature.search)
     implementation(projects.feature.gameDetails)
+    implementation(projects.feature.releaseCalendar)
 }

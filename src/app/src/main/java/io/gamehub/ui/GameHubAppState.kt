@@ -1,6 +1,7 @@
 package io.gamehub.ui
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -13,6 +14,7 @@ import androidx.navigation.compose.rememberNavController
 import io.gamehub.R
 import io.gamehub.core.navigation.NavigationDestination
 import io.gamehub.feature.home.navigation.HomeNavigationDestination
+import io.gamehub.feature.releasecalendar.navigation.ReleaseCalendarNavigation
 import io.gamehub.navigation.TopLevelDestination
 
 @Composable
@@ -40,6 +42,12 @@ class GameHubAppState(
             destination = HomeNavigationDestination.destination,
             selectedIcon = Icons.Default.Home,
             label = R.string.menu_home
+        ),
+        TopLevelDestination(
+            route = ReleaseCalendarNavigation.route,
+            destination = ReleaseCalendarNavigation.destination,
+            selectedIcon = Icons.Default.CalendarMonth,
+            label = R.string.menu_upcoming
         ),
     )
 
