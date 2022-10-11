@@ -21,23 +21,23 @@ data class GameDetailsDto(
     val description: String,
 
     @SerialName("metacritic")
-    val metacritic: Int?,
+    val metacritic: Int? = null,
 
     @SerialName("released")
-    val released: String?,
+    val released: String? = null,
 
     @SerialName("tba")
-    val tba: Boolean?,
+    val tba: Boolean? = null,
 
     @SerialName("background_image")
-    val backgroundImageUrl: String?,
+    val backgroundImageUrl: String? = null,
 
     @SerialName("website")
-    val websiteUrl: String,
+    val websiteUrl: String? = null,
 
     @SerialName("playtime")
-    val playtime: Int?,
+    val playtime: Int? = null,
 
     @SerialName("screenshots_count")
-    val screenshotsCount: Int?,
+    val screenshotsCount: Int? = null,
 )

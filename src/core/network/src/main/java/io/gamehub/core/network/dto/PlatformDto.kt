@@ -4,6 +4,13 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
+data class BasePlatformDto(
+
+    @SerialName("platform")
+    val platform: PlatformDto,
+)
+
+@Serializable
 data class PlatformDto(
     @SerialName("id")
     val id: Long,
@@ -18,14 +25,14 @@ data class PlatformDto(
     val image: String? = null,
 
     @SerialName("year_end")
-    val yearEnd: String? = null,
+    val yearEnd: Int? = null,
 
     @SerialName("year_start")
-    val yearStart: String? = null,
+    val yearStart: Int? = null,
 
     @SerialName("games_count")
-    val gamesCount: Long,
+    val gamesCount: Long? = null,
 
     @SerialName("image_background")
-    val imageBackground: String
+    val imageBackground: String? = null
 )

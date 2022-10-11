@@ -44,7 +44,8 @@ internal fun GamesUiSection(
         title = stringResource(id = titleId),
         subtitle = subtitleId?.let { stringResource(it) },
         onExpand = onExpand,
-        items = items
+        items = items,
+        key = { items[it].id }
     ) { item ->
         GameItem(
             model = item,
@@ -60,15 +61,6 @@ private fun GameItem(
 ) {
     val genres = remember {
         model.genres.joinToString(", ")
-    }
-
-    val releaseDate = remember {
-        model.releaseDate?.let {
-            DateTimeFormatter
-                .ofPattern("d LLLL yyyy")
-                .withLocale(Locale.US) // TODO: Add localization
-                .format(it)
-        }
     }
 
     Column(
@@ -111,12 +103,15 @@ private fun ItemPreview() {
     GameHubTheme(darkTheme = false) {
         GameItem(
             model = GameShort(
+                id = 0,
                 name = "Witcher 3",
                 slug = "",
                 genres = listOf("Action", "Adventure"),
                 imageUrl = "",
                 releaseDate = LocalDate.now(),
-                screenshots = emptyList()
+                screenshots = emptyList(),
+                platforms = emptyList(),
+                stores = emptyList()
             )
         )
     }
@@ -128,12 +123,15 @@ private fun ItemPreviewDark() {
     GameHubTheme(darkTheme = true) {
         GameItem(
             model = GameShort(
+                id = 0,
                 name = "Witcher 3",
                 slug = "",
                 genres = listOf("Action", "Adventure"),
                 imageUrl = "",
                 releaseDate = LocalDate.now(),
-                screenshots = emptyList()
+                screenshots = emptyList(),
+                platforms = emptyList(),
+                stores = emptyList()
             )
         )
     }

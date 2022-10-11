@@ -63,6 +63,7 @@ fun <T> HubSectionWithItems(
     title: String,
     subtitle: String? = null,
     onExpand: (() -> Unit)? = null,
+    key: ((Int) -> Any)? = null,
     items: List<T>,
     itemContent: @Composable LazyItemScope.(item: T) -> Unit,
 ) {
@@ -76,7 +77,7 @@ fun <T> HubSectionWithItems(
             contentPadding = Dimens.horizontalScreenPaddings,
             horizontalArrangement = Arrangement.spacedBy(17.dp),
         ) {
-            items(items.size) { index ->
+            items(items.size, key = key) { index ->
                 itemContent(this, items[index])
             }
         }

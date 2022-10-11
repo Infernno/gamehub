@@ -9,10 +9,10 @@ data class BaseResponse<T>(
     val count: Long,
 
     @SerialName("next")
-    val nextUrl: String?,
+    val nextUrl: String? = null,
 
     @SerialName("previous")
-    val previousUrl: String?,
+    val previousUrl: String? = null,
 
     @SerialName("results")
     val results: List<T>

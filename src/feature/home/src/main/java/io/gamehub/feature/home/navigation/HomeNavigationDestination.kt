@@ -13,7 +13,6 @@ object HomeNavigationDestination : NavigationDestination {
 
 fun NavGraphBuilder.homeGraph(
     navigateToDetails: (String) -> Unit,
-    nestedGraphs: NavGraphBuilder.() -> Unit
 ) {
     navigation(
         route = HomeNavigationDestination.route,
@@ -24,6 +23,5 @@ fun NavGraphBuilder.homeGraph(
                 navigateToDetails = navigateToDetails,
             )
         }
-        nestedGraphs()
     }
 }

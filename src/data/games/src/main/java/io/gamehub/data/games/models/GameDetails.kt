@@ -12,7 +12,7 @@ data class GameDetails(
     val released: String?,
     val tba: Boolean?,
     val backgroundImageUrl: String?,
-    val websiteUrl: String,
+    val websiteUrl: String?,
     val playtime: Int?,
     val screenshotsCount: Int?,
 )

@@ -21,6 +21,7 @@ googleMaterial = "1.6.1"
 androidxCompose = "1.3.0-rc01"
 androidxComposeCompiler = "1.3.2"
 androidxComposeMaterial3 = "1.0.0-beta03"
+androidxComposePaging3 = "1.0.0-alpha16"
 androidxHiltNavigationCompose = "1.0.0"
 coil = "2.2.2"
 google-accompanist = "0.26.4-beta"
@@ -79,6 +80,8 @@ androidx-compose-material3 = { group = "androidx.compose.material3", name = "mat
 androidx-compose-material3-windowSizeClass = { group = "androidx.compose.material3", name = "material3-window-size-class", version.ref = "androidxComposeMaterial3" }
 androidx-compose-material-iconsExtended = { group = "androidx.compose.material", name = "material-icons-extended", version.ref = "androidxCompose" }
 
+androidx-compose-paging = { group = "androidx.paging", name = "paging-compose", version.ref = "androidxComposePaging3" }
+
 androidx-compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "androidxCompose" }
 androidx-compose-ui-util = { group = "androidx.compose.ui", name = "ui-util", version.ref = "androidxCompose" }
 androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling", version.ref = "androidxCompose" }
@@ -131,7 +134,8 @@ androidx-compose-runtime = [
     "androidx-hilt-navigation-compose",
     "coil-kt-compose",
     "coil-kt-svg",
-    "google-accompanist-pager"
+    "google-accompanist-pager",
+    "androidx-compose-paging"
 ]
 
 orbit-mvi = [

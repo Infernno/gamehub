@@ -2,7 +2,6 @@ package io.gamehub.feature.releasecalendar.navigation
 
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import androidx.navigation.navigation
 import io.gamehub.core.navigation.NavigationDestination
 import io.gamehub.feature.releasecalendar.ReleaseCalendar
 
@@ -12,15 +11,11 @@ object ReleaseCalendarNavigation : NavigationDestination {
 }
 
 fun NavGraphBuilder.releaseCalendarGraph(
-    nestedGraphs: NavGraphBuilder.() -> Unit
+    navigateToDetails: (String) -> Unit
 ) {
-    navigation(
-        route = ReleaseCalendarNavigation.route,
-        startDestination = ReleaseCalendarNavigation.destination
-    ) {
-        composable(route = ReleaseCalendarNavigation.destination) {
-            ReleaseCalendar()
-        }
-        nestedGraphs()
+    composable(route = ReleaseCalendarNavigation.route) {
+        ReleaseCalendar(
+            navigateToDetails = navigateToDetails
+        )
     }
 }

@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.gamehub.core.utils.extensions.executeSuspendAsyncSafe
 import io.gamehub.data.common.DateRange
-import io.gamehub.data.games.usecase.GetNewGamesUseCase
+import io.gamehub.data.games.usecase.GetNewArrivalsUseCase
 import io.gamehub.data.games.usecase.GetPopularGamesUseCase
 import io.gamehub.data.games.usecase.GetUpcomingGamesUseCase
 import io.gamehub.data.genres.usecase.GetGenresUseCase
@@ -27,7 +27,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val popularGamesUseCase: GetPopularGamesUseCase,
     private val upcomingGamesUseCase: GetUpcomingGamesUseCase,
-    private val getNewGamesUseCase: GetNewGamesUseCase,
+    private val getNewArrivalsUseCase: GetNewArrivalsUseCase,
     private val genresUseCase: GetGenresUseCase
 ) : ViewModel(), ContainerHost<HomeState, Nothing> {
 
@@ -58,7 +58,7 @@ class HomeViewModel @Inject constructor(
                 upcomingGamesUseCase.invoke(dates = DateRange(start, end))
             }
 
-            val recentReleasesTask = async { getNewGamesUseCase.invoke() }
+            val recentReleasesTask = async { getNewArrivalsUseCase.invoke() }
 
             awaitAll(bestThisYearTask, genresTask, recentReleasesTask, recentReleasesTask)
 
@@ -82,10 +82,6 @@ class HomeViewModel @Inject constructor(
                         titleId = R.string.new_arrivals,
                         items = newGames
                     ),
-                    GamesSection(
-                        titleId = R.string.new_arrivals,
-                        items = newGames
-                    )
                 )
             )
         }.onSuccess { state ->
@@ -93,6 +89,7 @@ class HomeViewModel @Inject constructor(
                 state
             }
         }.onFailure {
+            println(it)
             reduce {
                 Error
             }

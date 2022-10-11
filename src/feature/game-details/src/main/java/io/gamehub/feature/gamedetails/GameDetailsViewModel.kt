@@ -5,9 +5,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.gamehub.core.navigation.navArgs
+import io.gamehub.core.utils.extensions.executeSuspendAsyncSafe
 import io.gamehub.core.utils.extensions.executeSuspendSafe
 import io.gamehub.data.games.usecase.GetGameDetailsUseCase
 import io.gamehub.feature.gamedetails.navigation.GameDetailsNavigationDestination
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
@@ -36,7 +38,7 @@ class GameDetailsViewModel @Inject constructor(
             getGameDetailsUseCase.getGameDetails(args)
         }.onSuccess {
             reduce {
-                Default(it)
+                Default(it.first, it.second)
             }
         }.onFailure {
             reduce {

@@ -5,10 +5,9 @@ import io.gamehub.data.common.Ordering
 import io.gamehub.data.games.models.GameShort
 import io.gamehub.data.games.repository.GameRepository
 import java.time.LocalDate
-import java.time.temporal.TemporalAdjusters
 import javax.inject.Inject
 
-class GetNewGamesUseCase @Inject constructor(
+class GetNewArrivalsUseCase @Inject constructor(
     private val gameRepository: GameRepository,
 ) {
     suspend fun invoke(
@@ -18,7 +17,7 @@ class GetNewGamesUseCase @Inject constructor(
         page = page,
         pageSize = pageSize,
         ordering = Ordering.RELEASED_REVERSED,
-        dates = DateRange.single(LocalDate.now()),
+        dates = DateRange.single(LocalDate.now().minusMonths(1)),
         metacritic = 50..100
     ).sortedByDescending { it.releaseDate }
 }

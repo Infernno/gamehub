@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.navigation
 import io.gamehub.core.navigation.NavigationDestination
 import io.gamehub.feature.gamedetails.navigation.GameDetailsNavigationDestination
 import io.gamehub.feature.gamedetails.navigation.gameDetailsGraph
@@ -31,19 +32,17 @@ fun HubNavHost(
                     GameDetailsNavigationDestination,
                     GameDetailsNavigationDestination.createNavigationRoute(slug)
                 )
-            },
-            nestedGraphs = {
-                gameDetailsGraph()
             }
         )
         releaseCalendarGraph(
-            nestedGraphs = {
-             //   gameDetailsGraph()
+            navigateToDetails = { slug ->
+                onNavigateToDestination(
+                    GameDetailsNavigationDestination,
+                    GameDetailsNavigationDestination.createNavigationRoute(slug)
+                )
             }
         )
-        searchGraph(
-            nestedGraphs = {
-            }
-        )
+        searchGraph()
+        gameDetailsGraph()
     }
 }
