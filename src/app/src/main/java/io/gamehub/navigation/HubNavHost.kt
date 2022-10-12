@@ -2,49 +2,119 @@ package io.gamehub.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
-import androidx.navigation.navigation
-import io.gamehub.core.navigation.NavigationDestination
-import io.gamehub.feature.gamedetails.navigation.GameDetailsNavigationDestination
-import io.gamehub.feature.gamedetails.navigation.gameDetailsGraph
-import io.gamehub.feature.home.navigation.HomeNavigationDestination
-import io.gamehub.feature.home.navigation.homeGraph
-import io.gamehub.feature.releasecalendar.navigation.releaseCalendarGraph
-import io.gamehub.feature.search.navigation.searchGraph
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigation
+import androidx.navigation.navArgument
+import io.gamehub.feature.gamedetails.DETAILS_ARG_KEY
+import io.gamehub.feature.gamedetails.GameDetailsScreen
+import io.gamehub.feature.home.HomeScreen
+import io.gamehub.feature.releasecalendar.ReleaseCalendar
 
 @Composable
 fun HubNavHost(
     navController: NavHostController,
-    onNavigateToDestination: (NavigationDestination, String) -> Unit,
-    onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
-    startDestination: String = HomeNavigationDestination.route
 ) {
     NavHost(
         navController = navController,
-        startDestination = startDestination,
+        startDestination = RootScreen.Home.route,
         modifier = modifier,
     ) {
-        homeGraph(
+        addHomeTopLevel(navController)
+        addUpcomingGamesTopLevel(navController)
+    }
+}
+
+private fun NavGraphBuilder.addHomeTopLevel(
+    navController: NavController,
+) {
+    setupTab(
+        root = RootScreen.Home,
+        startScreen = Screen.Home
+    ) { root ->
+        addHome(navController, root)
+        addGameDetails(navController, root)
+    }
+}
+
+private fun NavGraphBuilder.addUpcomingGamesTopLevel(
+    navController: NavController,
+) {
+    setupTab(
+        root = RootScreen.UpcomingGames,
+        startScreen = Screen.UpcomingGames
+    ) { root ->
+        addUpcomingGames(navController, root)
+        addGameDetails(navController, root)
+    }
+}
+
+private fun NavGraphBuilder.setupTab(
+    root: RootScreen,
+    startScreen: Screen,
+    configure: NavGraphBuilder.(RootScreen) -> Unit,
+) {
+    navigation(
+        route = root.route,
+        startDestination = startScreen.createRoute(root)
+    ) {
+        configure(root)
+    }
+}
+
+private fun NavGraphBuilder.addHome(
+    navController: NavController,
+    root: RootScreen,
+) {
+    composable(
+        route = Screen.Home.createRoute(root),
+    ) {
+        HomeScreen(
             navigateToDetails = { slug ->
-                onNavigateToDestination(
-                    GameDetailsNavigationDestination,
-                    GameDetailsNavigationDestination.createNavigationRoute(slug)
+                navController.navigate(
+                    Screen.GameDetails.createRoute(root, slug)
                 )
             }
         )
-        releaseCalendarGraph(
+    }
+}
+
+private fun NavGraphBuilder.addUpcomingGames(
+    navController: NavController,
+    root: RootScreen,
+) {
+    composable(
+        route = Screen.UpcomingGames.createRoute(root),
+    ) {
+        ReleaseCalendar(
             navigateToDetails = { slug ->
-                onNavigateToDestination(
-                    GameDetailsNavigationDestination,
-                    GameDetailsNavigationDestination.createNavigationRoute(slug)
+                navController.navigate(
+                    Screen.GameDetails.createRoute(root, slug)
                 )
             }
         )
-        searchGraph()
-        gameDetailsGraph(
-            goBack = onBackClick
+    }
+}
+
+private fun NavGraphBuilder.addGameDetails(
+    navController: NavController,
+    root: RootScreen,
+) {
+    composable(
+        route = Screen.GameDetails.createRoute(root),
+        arguments = listOf(
+            navArgument(DETAILS_ARG_KEY) { type = NavType.StringType }
+        )
+    ) {
+        GameDetailsScreen(
+            goBack = {
+                navController.popBackStack()
+            }
         )
     }
 }

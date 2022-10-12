@@ -1,24 +1,22 @@
 package io.gamehub.feature.home
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.gamehub.core.utils.extensions.executeSuspendAsyncSafe
+import io.gamehub.core.common.MviViewModel
+import io.gamehub.core.common.utils.executeSuspendAsyncSafe
 import io.gamehub.data.common.DateRange
+import io.gamehub.data.games.usecase.GetGenresUseCase
 import io.gamehub.data.games.usecase.GetNewArrivalsUseCase
 import io.gamehub.data.games.usecase.GetPopularGamesUseCase
 import io.gamehub.data.games.usecase.GetUpcomingGamesUseCase
-import io.gamehub.data.games.usecase.GetGenresUseCase
 import io.gamehub.feature.home.models.CategoriesSection
 import io.gamehub.feature.home.models.GamesSection
 import io.gamehub.feature.home.models.SliderSection
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
-import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
-import org.orbitmvi.orbit.viewmodel.container
 import java.time.LocalDate
 import java.time.temporal.TemporalAdjusters
 import javax.inject.Inject
@@ -28,10 +26,8 @@ class HomeViewModel @Inject constructor(
     private val popularGamesUseCase: GetPopularGamesUseCase,
     private val upcomingGamesUseCase: GetUpcomingGamesUseCase,
     private val getNewArrivalsUseCase: GetNewArrivalsUseCase,
-    private val genresUseCase: GetGenresUseCase
-) : ViewModel(), ContainerHost<HomeState, Nothing> {
-
-    override val container = container<HomeState, Nothing>(Loading)
+    private val genresUseCase: GetGenresUseCase,
+) : MviViewModel<HomeState, Nothing>(initialState = Loading) {
 
     init {
         viewModelScope.launch {

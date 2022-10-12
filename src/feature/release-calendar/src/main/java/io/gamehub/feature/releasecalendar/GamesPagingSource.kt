@@ -2,7 +2,7 @@ package io.gamehub.feature.releasecalendar
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import io.gamehub.core.utils.extensions.executeSuspendSafe
+import io.gamehub.core.common.utils.executeSuspendSafe
 import io.gamehub.data.common.DateRange
 import io.gamehub.data.games.models.GameShort
 import io.gamehub.data.games.usecase.GetUpcomingGamesUseCase

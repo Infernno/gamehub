@@ -7,9 +7,11 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
 import io.gamehub.core.ui.theme.GameHubTheme
 import io.gamehub.navigation.HubBottomBar
 import io.gamehub.navigation.HubNavHost
+import io.gamehub.navigation.RootScreen
 
 @Composable
 @OptIn(
@@ -17,21 +19,19 @@ import io.gamehub.navigation.HubNavHost
     ExperimentalLayoutApi::class,
 )
 fun GameHubApp(
-    appState: GameHubAppState = rememberHubAppState()
+  //  appState: GameHubAppState = rememberHubAppState()
 ) = GameHubTheme {
+    val navController = rememberNavController()
+
     Scaffold(
         bottomBar = {
             HubBottomBar(
-                destinations = appState.topLevelDestinations,
-                onNavigateToDestination = appState::navigate,
-                currentDestination = appState.currentDestination
+                navController = navController
             )
         }
     ) { padding ->
         HubNavHost(
-            navController = appState.navController,
-            onBackClick = appState::onBackClick,
-            onNavigateToDestination = appState::navigate,
+            navController = navController,
             modifier = Modifier
                 .padding(padding)
                 .consumedWindowInsets(padding)

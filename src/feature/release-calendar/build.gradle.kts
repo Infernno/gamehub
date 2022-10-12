@@ -8,8 +8,8 @@ android {
 
 dependencies {
     implementation(projects.core.ui)
-    implementation(projects.core.utils)
-    implementation(projects.core.navigation)
+    implementation(projects.core.common)
+    implementation(projects.core.network)
 
     implementation(projects.data.games)
 }

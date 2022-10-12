@@ -33,8 +33,8 @@ dependencies {
     implementation(libs.okhttp)
 
     implementation(projects.core.ui)
+    implementation(projects.core.common)
     implementation(projects.core.network)
-    implementation(projects.core.navigation)
 
     implementation(projects.feature.home)
     implementation(projects.feature.search)

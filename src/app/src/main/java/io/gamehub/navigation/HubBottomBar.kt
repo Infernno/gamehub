@@ -16,16 +16,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.compose.currentBackStackEntryAsState
 
 @Composable
 fun HubBottomBar(
     modifier: Modifier = Modifier,
-    destinations: List<TopLevelDestination>,
-    onNavigateToDestination: (TopLevelDestination) -> Unit,
-    currentDestination: NavDestination?
+    navController: NavController,
 ) {
+    val currentDestination: NavDestination? = navController
+        .currentBackStackEntryAsState().value?.destination
+
     // Wrap the navigation bar in a surface so the color behind the system
     // navigation is equal to the container color of the navigation bar.
     Surface(
@@ -41,14 +45,14 @@ fun HubBottomBar(
                 )
             ),
         ) {
-            destinations.forEach { destination ->
+            RootScreen.values().forEach { destination ->
                 val selected =
                     currentDestination?.hierarchy?.any { it.route == destination.route } == true
                 NavigationBarItem(
                     selected = selected,
                     icon = {
                         Icon(
-                            imageVector = destination.selectedIcon,
+                            imageVector = destination.icon,
                             contentDescription = stringResource(destination.label)
                         )
                     },
@@ -56,7 +60,19 @@ fun HubBottomBar(
                         Text(text = stringResource(destination.label))
                     },
                     onClick = {
-                        onNavigateToDestination(destination)
+                        navController.navigate(destination.route) {
+                            // Pop up to the start destination of the graph to
+                            // avoid building up a large stack of destinations
+                            // on the back stack as users select items
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
+                            // Avoid multiple copies of the same destination when
+                            // reselecting the same item
+                            launchSingleTop = true
+                            // Restore state when reselecting a previously selected item
+                            restoreState = true
+                        }
                     }
                 )
             }

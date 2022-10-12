@@ -10,7 +10,6 @@ android {
 
 dependencies  {
     implementation(projects.core.network)
-    implementation(projects.core.utils)
 
     implementation(libs.dagger2.hilt.runtime)
     kapt(libs.dagger2.hilt.compiler)
