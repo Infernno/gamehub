@@ -1,10 +1,9 @@
 package io.gamehub.feature.gamedetails
 
 import androidx.compose.foundation.border
-import androidx.compose.foundation.gestures.scrollable
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -15,14 +14,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccessTime
-import androidx.compose.material.icons.filled.Error
-import androidx.compose.material.icons.filled.StarRate
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
@@ -43,15 +38,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.google.accompanist.pager.ExperimentalPagerApi
-import io.gamehub.core.ui.components.ChipGroup
 import io.gamehub.core.ui.components.HubAppBar
 import io.gamehub.core.ui.components.HubAsyncImage
 import io.gamehub.core.ui.components.HubErrorScreen
-import io.gamehub.core.ui.components.HubExpandableHtmlText
 import io.gamehub.core.ui.components.HubLoadingScreen
-import io.gamehub.core.ui.components.HubSection
 import io.gamehub.core.ui.components.HubSlider
-import io.gamehub.core.ui.components.toHmtl
 import io.gamehub.core.ui.theme.horizontalScreenPaddings
 import io.gamehub.data.games.models.GameDetails
 import org.orbitmvi.orbit.compose.collectAsState
@@ -59,7 +50,7 @@ import org.orbitmvi.orbit.compose.collectAsState
 @Composable
 fun GameDetailsScreen(
     goBack: () -> Unit,
-    viewModel: GameDetailsViewModel = hiltViewModel()
+    viewModel: GameDetailsViewModel = hiltViewModel(),
 ) {
     val state by viewModel.collectAsState()
 
@@ -79,7 +70,7 @@ fun GameDetailsScreen(
 
 @Composable
 private fun GameDetailsContent(
-    state: GameDetailsState
+    state: GameDetailsState,
 ) {
     when (state) {
         is Default -> GameDetailsMain(state)
@@ -91,7 +82,7 @@ private fun GameDetailsContent(
 @Composable
 @OptIn(ExperimentalPagerApi::class)
 private fun GameDetailsMain(
-    state: Default
+    state: Default,
 ) {
     Column(
         modifier = Modifier
@@ -101,11 +92,13 @@ private fun GameDetailsMain(
             modifier = Modifier.horizontalScreenPaddings(),
             model = state.game
         )
-        Spacer(modifier = Modifier.height(20.dp))
-        GameFeatures(
-            modifier = Modifier.horizontalScreenPaddings(),
-            model = state.game
-        )
+        if (state.game.metacritic != null && (state.game.playtime ?: 0) > 0) {
+            Spacer(modifier = Modifier.height(20.dp))
+            GameFeatures(
+                modifier = Modifier.horizontalScreenPaddings(),
+                model = state.game
+            )
+        }
         Spacer(modifier = Modifier.height(20.dp))
         HubSlider(
             modifier = Modifier
@@ -121,21 +114,52 @@ private fun GameDetailsMain(
             )
         }
         Spacer(modifier = Modifier.height(20.dp))
-        HubSection(
-            title = "Description"
+
+        section(
+            title = stringResource(id = R.string.about)
         ) {
-            HubExpandableHtmlText(
-                modifier = Modifier.horizontalScreenPaddings(),
+            Text(
                 style = MaterialTheme.typography.bodyMedium,
-                text = remember { state.game.description.toHmtl() },
-                seeMoreText = "More"
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-            ChipGroup(
-                modifier = Modifier.horizontalScreenPaddings(),
-                list = state.game.genres
+                text = state.game.description,
             )
         }
+
+        section(
+            title = stringResource(id = R.string.platforms)
+        ) {
+            Text(
+                style = MaterialTheme.typography.bodyMedium,
+                text = remember { state.game.platforms.joinToString(separator = ", ") },
+            )
+        }
+
+        section(
+            title = stringResource(id = R.string.stores)
+        ) {
+            Text(
+                style = MaterialTheme.typography.bodyMedium,
+                text = remember { state.game.stores.joinToString(separator = ", ") },
+            )
+        }
+
+        section(
+            title = stringResource(id = R.string.developer)
+        ) {
+            Text(
+                style = MaterialTheme.typography.bodyMedium,
+                text = remember { state.game.developers.joinToString(separator = ", ") },
+            )
+        }
+
+        section(
+            title = stringResource(id = R.string.publisher)
+        ) {
+            Text(
+                style = MaterialTheme.typography.bodyMedium,
+                text = remember { state.game.publishers.joinToString(separator = ", ") },
+            )
+        }
+
         Spacer(modifier = Modifier.height(10.dp))
     }
 }
@@ -143,12 +167,8 @@ private fun GameDetailsMain(
 @Composable
 private fun GameHeader(
     modifier: Modifier = Modifier,
-    model: GameDetails
+    model: GameDetails,
 ) {
-    val devs = remember {
-        model.developers.joinToString(separator = ", ")
-    }
-
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
@@ -174,7 +194,7 @@ private fun GameHeader(
                     fontWeight = FontWeight.SemiBold
                 ),
                 color = MaterialTheme.colorScheme.primary,
-                text = devs,
+                text = remember { model.genres.joinToString(separator = ", ") },
                 maxLines = 1
             )
         }
@@ -184,7 +204,7 @@ private fun GameHeader(
 @Composable
 private fun GameFeatures(
     modifier: Modifier = Modifier,
-    model: GameDetails
+    model: GameDetails,
 ) {
     Row(
         modifier = modifier
@@ -221,7 +241,6 @@ private fun GameFeatures(
                 )
             }
         }
-
     }
 }
 
@@ -230,7 +249,7 @@ private fun FeatureColumn(
     painter: Painter,
     title: String,
     body: String,
-    iconTint: Color = LocalContentColor.current
+    iconTint: Color = LocalContentColor.current,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally
@@ -255,5 +274,22 @@ private fun FeatureColumn(
             text = body,
             style = MaterialTheme.typography.bodySmall
         )
+    }
+}
+
+@Composable
+private fun ColumnScope.section(
+    modifier: Modifier = Modifier,
+    title: String,
+    content: @Composable ColumnScope.() -> Unit,
+) {
+    Column(modifier = modifier.horizontalScreenPaddings()) {
+        Text(
+            text = title,
+            style = MaterialTheme.typography.titleMedium
+        )
+        Spacer(modifier = Modifier.height(3.dp))
+        content()
+        Spacer(modifier = Modifier.height(20.dp))
     }
 }

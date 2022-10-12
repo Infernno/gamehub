@@ -48,7 +48,13 @@ data class GameDetailsDto(
     val genres: List<GenreShortDto>? = null,
 
     @SerialName("developers")
-    val developers: List<GenreShortDto>? = null,
+    val developers: List<DeveloperDto>? = null,
+
+    @SerialName("publishers")
+    val publishers: List<PublisherDto>? = null,
+
+    @SerialName("stores")
+    val stores: List<BaseStoreDto>? = null,
 
     @SerialName("platforms")
     val platforms: List<BasePlatformDto>? = null

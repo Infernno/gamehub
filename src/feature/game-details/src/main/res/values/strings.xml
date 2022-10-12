@@ -4,4 +4,9 @@
     <string name="metacritic">Metacritic</string>
     <string name="playtime_hours">%1$sh</string>
     <string name="playtime">Play time</string>
+    <string name="about">About</string>
+    <string name="platforms">Platforms</string>
+    <string name="stores">Stores</string>
+    <string name="developer">Developer</string>
+    <string name="publisher">Publisher</string>
 </resources>

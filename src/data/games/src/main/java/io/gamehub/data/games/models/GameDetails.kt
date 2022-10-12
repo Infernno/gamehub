@@ -17,6 +17,8 @@ data class GameDetails(
     val screenshotsCount: Int?,
     val genres: List<String>,
     val developers: List<String>,
+    val publishers: List<String>,
+    val stores: List<String>,
     val platforms: List<String>,
 )
 
@@ -36,6 +38,8 @@ internal fun GameDetailsDto.toDomain(): GameDetails {
         screenshotsCount = screenshotsCount,
         genres = genres?.map { it.name } ?: emptyList(),
         developers = developers?.map { it.name } ?: emptyList(),
+        publishers = publishers?.map { it.name } ?: emptyList(),
+        stores = stores?.map { it.store.name } ?: emptyList(),
         platforms = platforms?.map { it.platform.name } ?: emptyList()
     )
 }
