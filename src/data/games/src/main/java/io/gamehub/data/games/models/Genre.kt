@@ -1,4 +1,4 @@
-package io.gamehub.data.genres.models
+package io.gamehub.data.games.models
 
 import io.gamehub.core.network.dto.GenreFullDto
 

@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="title_screenshots">Screenshots</string>
+    <string name="game_details">Game Details</string>
+    <string name="metacritic">Metacritic</string>
+    <string name="playtime_hours">%1$sh</string>
+    <string name="playtime">Play time</string>
 </resources>

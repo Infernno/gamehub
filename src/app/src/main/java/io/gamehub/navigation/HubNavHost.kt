@@ -43,6 +43,8 @@ fun HubNavHost(
             }
         )
         searchGraph()
-        gameDetailsGraph()
+        gameDetailsGraph(
+            goBack = onBackClick
+        )
     }
 }

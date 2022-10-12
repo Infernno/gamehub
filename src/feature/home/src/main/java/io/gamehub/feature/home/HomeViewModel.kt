@@ -8,7 +8,7 @@ import io.gamehub.data.common.DateRange
 import io.gamehub.data.games.usecase.GetNewArrivalsUseCase
 import io.gamehub.data.games.usecase.GetPopularGamesUseCase
 import io.gamehub.data.games.usecase.GetUpcomingGamesUseCase
-import io.gamehub.data.genres.usecase.GetGenresUseCase
+import io.gamehub.data.games.usecase.GetGenresUseCase
 import io.gamehub.feature.home.models.CategoriesSection
 import io.gamehub.feature.home.models.GamesSection
 import io.gamehub.feature.home.models.SliderSection

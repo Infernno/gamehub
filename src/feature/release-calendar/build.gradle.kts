@@ -12,5 +12,4 @@ dependencies {
     implementation(projects.core.navigation)
 
     implementation(projects.data.games)
-    implementation(projects.data.genres)
 }

@@ -1,7 +1,7 @@
-package io.gamehub.data.genres.repositories
+package io.gamehub.data.games.repository
 
 import io.gamehub.data.common.Ordering
-import io.gamehub.data.genres.models.Genre
+import io.gamehub.data.games.models.Genre
 
 interface GenreRepository {
     suspend fun getGenres(

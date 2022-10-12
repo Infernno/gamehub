@@ -12,8 +12,6 @@ dependencies  {
     implementation(projects.core.network)
     implementation(projects.core.utils)
 
-    api(projects.data.common)
-
     implementation(libs.dagger2.hilt.runtime)
     kapt(libs.dagger2.hilt.compiler)
 }

@@ -1,9 +1,9 @@
-package io.gamehub.data.genres.repositories
+package io.gamehub.data.games.repository
 
 import io.gamehub.core.network.api.RawgApi
 import io.gamehub.data.common.Ordering
-import io.gamehub.data.genres.models.Genre
-import io.gamehub.data.genres.models.toDomain
+import io.gamehub.data.games.models.Genre
+import io.gamehub.data.games.models.toDomain
 import javax.inject.Inject
 
 internal class GenreRepositoryImpl @Inject constructor(

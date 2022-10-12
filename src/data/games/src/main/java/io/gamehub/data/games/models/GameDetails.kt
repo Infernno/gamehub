@@ -15,6 +15,9 @@ data class GameDetails(
     val websiteUrl: String?,
     val playtime: Int?,
     val screenshotsCount: Int?,
+    val genres: List<String>,
+    val developers: List<String>,
+    val platforms: List<String>,
 )
 
 internal fun GameDetailsDto.toDomain(): GameDetails {
@@ -23,13 +26,16 @@ internal fun GameDetailsDto.toDomain(): GameDetails {
         slug = slug,
         name = name,
         nameOriginal = nameOriginal,
-        description = description,
+        description = descriptionRaw,
         metacritic = metacritic,
         released = released,
         tba = tba,
         backgroundImageUrl = backgroundImageUrl,
         websiteUrl = websiteUrl,
         playtime = playtime,
-        screenshotsCount = screenshotsCount
+        screenshotsCount = screenshotsCount,
+        genres = genres?.map { it.name } ?: emptyList(),
+        developers = developers?.map { it.name } ?: emptyList(),
+        platforms = platforms?.map { it.platform.name } ?: emptyList()
     )
 }

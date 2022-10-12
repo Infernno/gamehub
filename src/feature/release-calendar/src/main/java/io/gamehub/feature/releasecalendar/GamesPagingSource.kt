@@ -6,6 +6,8 @@ import io.gamehub.core.utils.extensions.executeSuspendSafe
 import io.gamehub.data.common.DateRange
 import io.gamehub.data.games.models.GameShort
 import io.gamehub.data.games.usecase.GetUpcomingGamesUseCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.time.LocalDate
 import javax.inject.Inject
 
@@ -21,11 +23,13 @@ class GamesPagingSource @Inject constructor(
         val pageSize = params.loadSize
 
         val result = executeSuspendSafe {
-            upcomingGamesUseCase.invoke(
-                dates = DateRange.single(LocalDate.now()),
-                page = page,
-                pageSize = pageSize
-            )
+            withContext(Dispatchers.IO) {
+                upcomingGamesUseCase.invoke(
+                    dates = DateRange(LocalDate.now(), LocalDate.now().plusYears(1)),
+                    page = page,
+                    pageSize = pageSize
+                ).sortedBy { it.releaseDate }
+            }
         }.onFailure {
             println(it)
         }

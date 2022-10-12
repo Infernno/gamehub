@@ -1,8 +1,8 @@
-package io.gamehub.data.genres.usecase
+package io.gamehub.data.games.usecase
 
 import io.gamehub.data.common.Ordering
-import io.gamehub.data.genres.models.Genre
-import io.gamehub.data.genres.repositories.GenreRepository
+import io.gamehub.data.games.models.Genre
+import io.gamehub.data.games.repository.GenreRepository
 import javax.inject.Inject
 
 class GetGenresUseCase @Inject constructor(

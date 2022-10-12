@@ -22,7 +22,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import io.gamehub.data.games.models.GameShort
-import io.gamehub.data.genres.models.Genre
+import io.gamehub.data.games.models.Genre
 import io.gamehub.feature.home.composables.CategoriesUiSection
 import io.gamehub.feature.home.composables.GamesSlider
 import io.gamehub.feature.home.composables.GamesUiSection

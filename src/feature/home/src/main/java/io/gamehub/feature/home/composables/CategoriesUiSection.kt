@@ -23,7 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.gamehub.core.ui.components.HubAsyncImage
 import io.gamehub.core.ui.components.HubSectionWithItems
-import io.gamehub.data.genres.models.Genre
+import io.gamehub.data.games.models.Genre
 
 private val CELL_SIZE = 120.dp
 

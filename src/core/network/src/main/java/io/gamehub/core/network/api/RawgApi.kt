@@ -10,7 +10,6 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface RawgApi {
-
     /**
      * Get a list of games.
      * @property page integer A page number within the paginated result set.

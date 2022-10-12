@@ -2,7 +2,7 @@ package io.gamehub.feature.home.models
 
 import androidx.annotation.StringRes
 import io.gamehub.data.games.models.GameShort
-import io.gamehub.data.genres.models.Genre
+import io.gamehub.data.games.models.Genre
 
 sealed class Section
 

@@ -21,13 +21,17 @@ object GameDetailsNavigationDestination : NavigationDestination {
     }
 }
 
-fun NavGraphBuilder.gameDetailsGraph() {
+fun NavGraphBuilder.gameDetailsGraph(
+    goBack: () -> Unit
+) {
     composable(
         route = GameDetailsNavigationDestination.route,
         arguments = listOf(
             navArgument(GameDetailsNavigationDestination.ArgumentKey) { type = NavType.StringType }
         )
     ) {
-        GameDetailsScreen()
+        GameDetailsScreen(
+            goBack = goBack
+        )
     }
 }

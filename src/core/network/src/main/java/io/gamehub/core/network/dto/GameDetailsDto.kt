@@ -20,6 +20,9 @@ data class GameDetailsDto(
     @SerialName("description")
     val description: String,
 
+    @SerialName("description_raw")
+    val descriptionRaw: String,
+
     @SerialName("metacritic")
     val metacritic: Int? = null,
 
@@ -40,4 +43,13 @@ data class GameDetailsDto(
 
     @SerialName("screenshots_count")
     val screenshotsCount: Int? = null,
+
+    @SerialName("genres")
+    val genres: List<GenreShortDto>? = null,
+
+    @SerialName("developers")
+    val developers: List<GenreShortDto>? = null,
+
+    @SerialName("platforms")
+    val platforms: List<BasePlatformDto>? = null
 )

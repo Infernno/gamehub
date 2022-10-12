@@ -37,7 +37,7 @@ fun HubExpandableHtmlText(
     var showMore by remember { mutableStateOf(false) }
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .clickable { showMore = !showMore }
     ) {
         Text(
