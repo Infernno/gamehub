@@ -8,9 +8,3 @@ import androidx.compose.ui.tooling.preview.Preview
 fun SearchScreen() {
     Text(text = "Search screen!")
 }
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    SearchScreen()
-}

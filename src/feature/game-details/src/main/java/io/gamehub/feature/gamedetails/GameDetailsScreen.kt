@@ -46,7 +46,9 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import io.gamehub.core.ui.components.ChipGroup
 import io.gamehub.core.ui.components.HubAppBar
 import io.gamehub.core.ui.components.HubAsyncImage
+import io.gamehub.core.ui.components.HubErrorScreen
 import io.gamehub.core.ui.components.HubExpandableHtmlText
+import io.gamehub.core.ui.components.HubLoadingScreen
 import io.gamehub.core.ui.components.HubSection
 import io.gamehub.core.ui.components.HubSlider
 import io.gamehub.core.ui.components.toHmtl
@@ -81,8 +83,8 @@ private fun GameDetailsContent(
 ) {
     when (state) {
         is Default -> GameDetailsMain(state)
-        Error -> ErrorState()
-        Loading -> LoadingState()
+        Loading -> HubLoadingScreen()
+        Error -> HubErrorScreen()
     }
 }
 
@@ -150,7 +152,6 @@ private fun GameHeader(
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceAround
     ) {
         HubAsyncImage(
             modifier = Modifier
@@ -161,15 +162,20 @@ private fun GameHeader(
         Spacer(modifier = Modifier.width(10.dp))
         Column {
             Text(
-                style = MaterialTheme.typography.titleMedium.copy(
+                style = MaterialTheme.typography.titleLarge.copy(
                     fontWeight = FontWeight.Bold
                 ),
-                text = model.name
+                text = model.name,
+                maxLines = 2
             )
-            Spacer(modifier = Modifier.height(5.dp))
+            Spacer(modifier = Modifier.height(2.dp))
             Text(
-                style = MaterialTheme.typography.bodyMedium,
-                text = devs
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontWeight = FontWeight.SemiBold
+                ),
+                color = MaterialTheme.colorScheme.primary,
+                text = devs,
+                maxLines = 1
             )
         }
     }
@@ -251,24 +257,3 @@ private fun FeatureColumn(
         )
     }
 }
-
-@Composable
-private fun LoadingState() {
-    CircularProgressIndicator(
-        modifier = Modifier
-            .fillMaxSize()
-            .wrapContentSize(Alignment.Center)
-    )
-}
-
-@Composable
-private fun ErrorState() {
-    Icon(
-        modifier = Modifier
-            .fillMaxSize()
-            .wrapContentSize(Alignment.Center),
-        imageVector = Icons.Default.Error,
-        contentDescription = null
-    )
-}
-

@@ -14,7 +14,7 @@ enum class RootScreen(
     val icon: ImageVector,
 ) {
     Home("home", R.string.menu_home, Icons.Default.Home),
-    UpcomingGames("upcoming", R.string.menu_upcoming, Icons.Default.CalendarMonth)
+    ReleaseCalendar("release_calendar", R.string.menu_calendar, Icons.Default.CalendarMonth)
 }
 
 sealed class Screen(
@@ -22,8 +22,8 @@ sealed class Screen(
 ) {
     fun createRoute(root: RootScreen) = "${root.route}/$route"
 
-    object Home : Screen("home")
-    object UpcomingGames : Screen("upcoming")
+    object Home : Screen(RootScreen.Home.route)
+    object ReleaseCalendar : Screen(RootScreen.ReleaseCalendar.route)
 
     object GameDetails : Screen("details/{$DETAILS_ARG_KEY}") {
         fun createRoute(root: RootScreen, slug: String): String {

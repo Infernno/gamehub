@@ -21,6 +21,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import io.gamehub.core.ui.components.HubErrorScreen
+import io.gamehub.core.ui.components.HubLoadingScreen
 import io.gamehub.data.games.models.GameShort
 import io.gamehub.data.games.models.Genre
 import io.gamehub.feature.home.composables.CategoriesUiSection
@@ -44,8 +46,8 @@ fun HomeScreen(
             openGameDetails = { navigateToDetails(it.slug) },
             openGamesOfGenre = { },
         )
-        Loading -> LoadingState()
-        Error -> ErrorState()
+        Loading -> HubLoadingScreen()
+        Error -> HubErrorScreen()
     }
 }
 
@@ -98,24 +100,4 @@ private fun DefaultState(
             }
         }
     }
-}
-
-@Composable
-private fun LoadingState() {
-    CircularProgressIndicator(
-        modifier = Modifier
-            .fillMaxSize()
-            .wrapContentSize(Alignment.Center)
-    )
-}
-
-@Composable
-private fun ErrorState() {
-    Icon(
-        modifier = Modifier
-            .fillMaxSize()
-            .wrapContentSize(Alignment.Center),
-        imageVector = Icons.Default.Error,
-        contentDescription = null
-    )
 }

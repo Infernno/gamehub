@@ -1,7 +1,7 @@
 package io.gamehub.data.games.repository
 
 import io.gamehub.core.network.api.RawgApi
-import io.gamehub.data.common.Ordering
+import io.gamehub.data.games.common.Ordering
 import io.gamehub.data.games.models.Screenshot
 import io.gamehub.data.games.models.toDomain
 import javax.inject.Inject

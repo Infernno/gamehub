@@ -61,8 +61,8 @@ internal fun CategoriesUiSection(
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center,
                 text = item.name,
-                maxLines = 2,
-                style = MaterialTheme.typography.titleMedium
+                maxLines = 1,
+                style = MaterialTheme.typography.bodyLarge
             )
         }
     }

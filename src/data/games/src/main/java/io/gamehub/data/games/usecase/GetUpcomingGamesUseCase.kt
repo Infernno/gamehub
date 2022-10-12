@@ -1,7 +1,7 @@
 package io.gamehub.data.games.usecase
 
 import io.gamehub.data.common.DateRange
-import io.gamehub.data.common.Ordering
+import io.gamehub.data.games.common.Ordering
 import io.gamehub.data.games.models.GameShort
 import io.gamehub.data.games.repository.GameRepository
 import javax.inject.Inject

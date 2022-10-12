@@ -1,6 +1,6 @@
 package io.gamehub.data.games.usecase
 
-import io.gamehub.data.common.Ordering
+import io.gamehub.data.games.common.Ordering
 import io.gamehub.data.games.models.Genre
 import io.gamehub.data.games.repository.GenreRepository
 import javax.inject.Inject

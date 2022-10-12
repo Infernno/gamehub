@@ -26,7 +26,7 @@ fun HubNavHost(
         modifier = modifier,
     ) {
         addHomeTopLevel(navController)
-        addUpcomingGamesTopLevel(navController)
+        addReleaseCalendarTopLevel(navController)
     }
 }
 
@@ -42,14 +42,14 @@ private fun NavGraphBuilder.addHomeTopLevel(
     }
 }
 
-private fun NavGraphBuilder.addUpcomingGamesTopLevel(
+private fun NavGraphBuilder.addReleaseCalendarTopLevel(
     navController: NavController,
 ) {
     setupTab(
-        root = RootScreen.UpcomingGames,
-        startScreen = Screen.UpcomingGames
+        root = RootScreen.ReleaseCalendar,
+        startScreen = Screen.ReleaseCalendar
     ) { root ->
-        addUpcomingGames(navController, root)
+        addReleaseCalendar(navController, root)
         addGameDetails(navController, root)
     }
 }
@@ -84,12 +84,12 @@ private fun NavGraphBuilder.addHome(
     }
 }
 
-private fun NavGraphBuilder.addUpcomingGames(
+private fun NavGraphBuilder.addReleaseCalendar(
     navController: NavController,
     root: RootScreen,
 ) {
     composable(
-        route = Screen.UpcomingGames.createRoute(root),
+        route = Screen.ReleaseCalendar.createRoute(root),
     ) {
         ReleaseCalendar(
             navigateToDetails = { slug ->
