@@ -14,6 +14,7 @@ import io.gamehub.feature.gamedetails.DETAILS_ARG_KEY
 import io.gamehub.feature.gamedetails.GameDetailsScreen
 import io.gamehub.feature.home.HomeScreen
 import io.gamehub.feature.releasecalendar.ReleaseCalendar
+import io.gamehub.feature.search.SearchScreen
 
 @Composable
 fun HubNavHost(
@@ -38,6 +39,7 @@ private fun NavGraphBuilder.addHomeTopLevel(
         startScreen = Screen.Home
     ) { root ->
         addHome(navController, root)
+        addSearch(navController, root)
         addGameDetails(navController, root)
     }
 }
@@ -79,6 +81,11 @@ private fun NavGraphBuilder.addHome(
                 navController.navigate(
                     Screen.GameDetails.createRoute(root, slug)
                 )
+            },
+            navigateToSearch = {
+                navController.navigate(
+                    Screen.Search.createRoute(root)
+                )
             }
         )
     }
@@ -114,6 +121,26 @@ private fun NavGraphBuilder.addGameDetails(
         GameDetailsScreen(
             goBack = {
                 navController.popBackStack()
+            }
+        )
+    }
+}
+
+private fun NavGraphBuilder.addSearch(
+    navController: NavController,
+    root: RootScreen,
+) {
+    composable(
+        route = Screen.Search.createRoute(root)
+    ) {
+        SearchScreen(
+            goBack = {
+                navController.popBackStack()
+            },
+            navigateToDetails = { slug ->
+                navController.navigate(
+                    Screen.GameDetails.createRoute(root, slug)
+                )
             }
         )
     }

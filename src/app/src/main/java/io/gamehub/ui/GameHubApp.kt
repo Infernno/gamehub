@@ -18,9 +18,7 @@ import io.gamehub.navigation.RootScreen
     ExperimentalMaterial3Api::class,
     ExperimentalLayoutApi::class,
 )
-fun GameHubApp(
-  //  appState: GameHubAppState = rememberHubAppState()
-) = GameHubTheme {
+fun GameHubApp() = GameHubTheme {
     val navController = rememberNavController()
 
     Scaffold(

@@ -1,4 +1,4 @@
 <resources>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_fragment">Hello blank fragment</string>
+    <string name="hint_search_query">Search for a game</string>
+    <string name="nothing_found">Nothing found</string>
 </resources>

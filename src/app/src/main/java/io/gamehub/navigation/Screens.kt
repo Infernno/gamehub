@@ -24,6 +24,7 @@ sealed class Screen(
 
     object Home : Screen(RootScreen.Home.route)
     object ReleaseCalendar : Screen(RootScreen.ReleaseCalendar.route)
+    object Search : Screen("search")
 
     object GameDetails : Screen("details/{$DETAILS_ARG_KEY}") {
         fun createRoute(root: RootScreen, slug: String): String {

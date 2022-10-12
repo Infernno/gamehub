@@ -25,7 +25,7 @@ import io.gamehub.core.ui.components.HubAsyncImage
 import io.gamehub.core.ui.components.HubSectionWithItems
 import io.gamehub.data.games.models.Genre
 
-private val CELL_SIZE = 120.dp
+private val CELL_SIZE = 100.dp
 
 @Composable
 internal fun CategoriesUiSection(
@@ -62,7 +62,7 @@ internal fun CategoriesUiSection(
                 textAlign = TextAlign.Center,
                 text = item.name,
                 maxLines = 1,
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.bodyMedium
             )
         }
     }
