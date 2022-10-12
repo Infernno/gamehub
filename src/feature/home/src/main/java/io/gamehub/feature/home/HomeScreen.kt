@@ -41,6 +41,7 @@ import org.orbitmvi.orbit.compose.collectAsState
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
     navigateToDetails: (String) -> Unit,
+    navigateToGenre: (String) -> Unit,
     navigateToSearch: () -> Unit,
 ) {
     val state by viewModel.collectAsState()
@@ -49,7 +50,7 @@ fun HomeScreen(
         is Default -> DefaultState(
             state = currentState,
             openGameDetails = { navigateToDetails(it.slug) },
-            openGamesOfGenre = { },
+            openGamesOfGenre = { navigateToGenre(it.slug) },
             openSearch = navigateToSearch
         )
         Loading -> HubLoadingScreen()

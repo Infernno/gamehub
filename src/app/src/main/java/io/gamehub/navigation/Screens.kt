@@ -6,6 +6,7 @@ import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.ui.graphics.vector.ImageVector
 import io.gamehub.R
+import io.gamehub.feature.filter.FILTER_ARG_KEY
 import io.gamehub.feature.gamedetails.DETAILS_ARG_KEY
 
 enum class RootScreen(
@@ -29,6 +30,12 @@ sealed class Screen(
     object GameDetails : Screen("details/{$DETAILS_ARG_KEY}") {
         fun createRoute(root: RootScreen, slug: String): String {
             return "${root.route}/details/$slug"
+        }
+    }
+
+    object FilterScreen : Screen("filter/{$FILTER_ARG_KEY}") {
+        fun createRoute(root: RootScreen, filterKey: String): String {
+            return "${root.route}/filter/$filterKey"
         }
     }
 }

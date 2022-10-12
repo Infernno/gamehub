@@ -10,6 +10,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
+import io.gamehub.feature.filter.FILTER_ARG_KEY
+import io.gamehub.feature.filter.FilterListScreen
 import io.gamehub.feature.gamedetails.DETAILS_ARG_KEY
 import io.gamehub.feature.gamedetails.GameDetailsScreen
 import io.gamehub.feature.home.HomeScreen
@@ -40,6 +42,7 @@ private fun NavGraphBuilder.addHomeTopLevel(
     ) { root ->
         addHome(navController, root)
         addSearch(navController, root)
+        addFilterScreen(navController, root)
         addGameDetails(navController, root)
     }
 }
@@ -85,6 +88,11 @@ private fun NavGraphBuilder.addHome(
             navigateToSearch = {
                 navController.navigate(
                     Screen.Search.createRoute(root)
+                )
+            },
+            navigateToGenre = { key ->
+                navController.navigate(
+                    Screen.FilterScreen.createRoute(root, key)
                 )
             }
         )
@@ -141,6 +149,29 @@ private fun NavGraphBuilder.addSearch(
                 navController.navigate(
                     Screen.GameDetails.createRoute(root, slug)
                 )
+            }
+        )
+    }
+}
+
+private fun NavGraphBuilder.addFilterScreen(
+    navController: NavController,
+    root: RootScreen,
+) {
+    composable(
+        route = Screen.FilterScreen.createRoute(root),
+        arguments = listOf(
+            navArgument(FILTER_ARG_KEY) { type = NavType.StringType }
+        )
+    ) {
+        FilterListScreen(
+            navigateToDetails = { slug ->
+                navController.navigate(
+                    Screen.GameDetails.createRoute(root, slug)
+                )
+            },
+            goBack = {
+                navController.popBackStack()
             }
         )
     }

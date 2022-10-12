@@ -40,4 +40,5 @@ dependencies {
     implementation(projects.feature.search)
     implementation(projects.feature.gameDetails)
     implementation(projects.feature.releaseCalendar)
+    implementation(projects.feature.filter)
 }

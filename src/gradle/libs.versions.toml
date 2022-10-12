@@ -26,6 +26,7 @@ androidxHiltNavigationCompose = "1.0.0"
 coil = "2.2.2"
 google-accompanist = "0.26.5-rc"
 orbitmvi = "4.4.0"
+lottie = "5.2.0"
 
 # Network
 okhttp = "4.10.0"
@@ -102,6 +103,8 @@ google-accompanist-pager = { module = "com.google.accompanist:accompanist-pager"
 orbit-mvi-viewmodel = { module = "org.orbit-mvi:orbit-viewmodel", version.ref = "orbitmvi" }
 orbit-mvi-compose = { module = "org.orbit-mvi:orbit-compose", version.ref = "orbitmvi" }
 
+lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
+
 # Tests
 androidx-test-ext = { group = "androidx.test.ext", name = "junit", version.ref = "androidxTestJunit" }
 androidx-test-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidxEspresso" }
@@ -135,7 +138,8 @@ androidx-compose-runtime = [
     "coil-kt-compose",
     "coil-kt-svg",
     "google-accompanist-pager",
-    "androidx-compose-paging"
+    "androidx-compose-paging",
+    "lottie-compose"
 ]
 
 orbit-mvi = [

@@ -24,7 +24,7 @@ internal class GameRepositoryImpl @Inject constructor(
             page = page,
             pageSize = pageSize,
             search = search,
-            genres = genres?.joinToString { "," },
+            genres = genres?.joinToString(separator = ","),
             dates = dates?.toString(),
             ordering = ordering?.code,
             metacritic = metacritic?.convert()
