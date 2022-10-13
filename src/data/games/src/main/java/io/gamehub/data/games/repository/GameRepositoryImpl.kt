@@ -1,48 +1,97 @@
 package io.gamehub.data.games.repository
 
+import arrow.core.Either
+import arrow.core.Option
+import arrow.retrofit.adapter.either.networkhandling.CallError
 import io.gamehub.core.network.api.RawgApi
-import io.gamehub.data.common.DateRange
-import io.gamehub.data.games.common.Ordering
+import io.gamehub.core.network.dto.BaseResponse
+import io.gamehub.core.network.dto.GameShortDto
+import io.gamehub.core.network.dto.Ordering
+import io.gamehub.data.games.mappers.toDomain
+import io.gamehub.data.games.models.DateRange
 import io.gamehub.data.games.models.GameDetails
 import io.gamehub.data.games.models.GameShort
-import io.gamehub.data.games.models.toDomain
 import javax.inject.Inject
 
 internal class GameRepositoryImpl @Inject constructor(
     private val api: RawgApi,
 ) : GameRepository {
-    override suspend fun getGames(
+
+    override suspend fun getUpcomingGames(
+        dateRange: DateRange,
         page: Int?,
         pageSize: Int?,
-        search: String?,
-        genres: List<String>?,
-        dates: DateRange?,
-        ordering: Ordering?,
-        metacritic: IntRange?
-    ): List<GameShort> {
+    ): Option<List<GameShort>> {
         return api.getGames(
+            ordering = Ordering.RELEASED.key,
+            dates = dateRange.toString(),
+            page = page,
+            pageSize = pageSize
+        ).mapToDomain()
+    }
+
+    override suspend fun getNewArrivals(
+        dateRange: DateRange,
+        page: Int?,
+        pageSize: Int?,
+    ): Option<List<GameShort>> {
+        return api.getGames(
+            dates = dateRange.toString(),
+            ordering = Ordering.ADDED_REVERSED.key,
             page = page,
             pageSize = pageSize,
-            search = search,
-            genres = genres?.joinToString(separator = ","),
-            dates = dates?.toString(),
-            ordering = ordering?.code,
-            metacritic = metacritic?.convert()
-        ).results.map { dto ->
-            dto.toDomain()
-        }
+        ).mapToDomain()
     }
 
-    override suspend fun getGameDetails(id: Int): GameDetails {
-        return api.getGameDetails(id.toString()).toDomain()
+    override suspend fun getPopularGames(
+        dateRange: DateRange,
+        page: Int?,
+        pageSize: Int?,
+    ): Option<List<GameShort>> {
+        return api.getGames(
+            dates = dateRange.toString(),
+            ordering = Ordering.METACRITIC_REVERSED.key,
+            page = page,
+            pageSize = pageSize,
+        ).mapToDomain()
     }
 
-    override suspend fun getGameDetails(slug: String): GameDetails {
-        return api.getGameDetails(slug).toDomain()
+    override suspend fun getGamesByGenre(
+        genre: String,
+        page: Int?,
+        pageSize: Int?,
+    ): Option<List<GameShort>> {
+        return api.getGames(
+            ordering = Ordering.METACRITIC_REVERSED.key,
+            genres = genre,
+            page = page,
+            pageSize = pageSize,
+        ).mapToDomain()
     }
 
-    private fun IntRange.convert(): String {
-        return if (first == last) first.toString()
-        else "$first, $last"
+    override suspend fun getGamesByName(
+        name: String,
+        page: Int?,
+        pageSize: Int?,
+    ): Option<List<GameShort>> {
+        return api.getGames(
+            search = name,
+            page = page,
+            pageSize = pageSize
+        ).mapToDomain()
+    }
+
+    override suspend fun getGameDetails(slug: String): Option<GameDetails> {
+        return api.getGameDetails(
+            id = slug
+        )
+            .map { it.toDomain() }
+            .orNone()
+    }
+
+    private fun Either<CallError, BaseResponse<GameShortDto>>.mapToDomain(): Option<List<GameShort>> {
+        return map { response ->
+            response.results.map { it.toDomain() }
+        }.orNone()
     }
 }

@@ -106,21 +106,19 @@ private fun SearchBar(
             .collect { onSearch(it) }
     }
 
-    var query: String by rememberSaveable { mutableStateOf("") }
+    var queryState: String by rememberSaveable { mutableStateOf("") }
     var showClearIcon by rememberSaveable { mutableStateOf(false) }
 
-    showClearIcon = query.isNotEmpty()
+    showClearIcon = queryState.isNotEmpty()
 
     TextField(
         modifier = Modifier.fillMaxWidth(),
-        value = query,
+        value = queryState,
         onValueChange = { onQueryChanged ->
-            // If user makes changes to text, immediately updated it.
-            query = onQueryChanged
-            // To avoid crash, only query when string isn't empty.
+            queryState = onQueryChanged
+
             if (onQueryChanged.isNotEmpty()) {
-                // Pass latest query to refresh search results.
-                searchFlow.value = query
+                searchFlow.value = queryState
             }
         },
         leadingIcon = {
@@ -133,7 +131,7 @@ private fun SearchBar(
         },
         trailingIcon = {
             if (showClearIcon) {
-                IconButton(onClick = { query = "" }) {
+                IconButton(onClick = { queryState = "" }) {
                     Icon(
                         imageVector = Icons.Rounded.Clear,
                         contentDescription = null

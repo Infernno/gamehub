@@ -34,5 +34,5 @@ data class PlatformDto(
     val gamesCount: Long? = null,
 
     @SerialName("image_background")
-    val imageBackground: String? = null
+    val imageBackground: String? = null,
 )

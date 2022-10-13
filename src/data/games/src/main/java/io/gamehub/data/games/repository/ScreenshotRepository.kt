@@ -1,14 +1,13 @@
 package io.gamehub.data.games.repository
 
-import io.gamehub.data.games.common.Ordering
+import arrow.core.Option
 import io.gamehub.data.games.models.Screenshot
 
 interface ScreenshotRepository {
 
     suspend fun getScreenshotFor(
         slug: String,
-        ordering: Ordering? = null,
         page: Int? = null,
         pageSize: Int? = null,
-    ): List<Screenshot>
+    ): Option<List<Screenshot>>
 }

@@ -10,11 +10,12 @@ android {
 }
 
 dependencies {
+    implementation(libs.okhttp)
+    implementation(libs.arrow.core)
+    api(libs.bundles.retrofit2)
+
     implementation(libs.dagger2.hilt.runtime)
     kapt(libs.dagger2.hilt.compiler)
-
-    api(libs.bundles.retrofi2)
-    implementation(libs.okhttp)
 
     debugImplementation(libs.chucker.debug)
     releaseImplementation(libs.chucker.noop)

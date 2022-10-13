@@ -1,5 +1,6 @@
 package io.gamehub.core.network.internal
 
+import arrow.retrofit.adapter.either.EitherCallAdapterFactory
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import io.gamehub.core.network.RawgApiKeyProvider
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -15,18 +16,19 @@ internal fun defaultJson() = Json {
 }
 
 internal fun OkHttpClient.Builder.addApiKeyInterceptor(
-    apiKeyProvider: RawgApiKeyProvider
+    apiKeyProvider: RawgApiKeyProvider,
 ): OkHttpClient.Builder {
     return addInterceptor(ApiKeyInterceptor(apiKeyProvider))
 }
 
 @OptIn(ExperimentalSerializationApi::class)
 internal fun retrofit(
-    okHttpClient: OkHttpClient
+    okHttpClient: OkHttpClient,
 ): Retrofit {
     return Retrofit.Builder().apply {
         baseUrl(RAWG_API_URL)
         client(okHttpClient)
+        addCallAdapterFactory(EitherCallAdapterFactory())
         addConverterFactory(defaultJson().asConverterFactory("application/json".toMediaType()))
     }.build()
 }

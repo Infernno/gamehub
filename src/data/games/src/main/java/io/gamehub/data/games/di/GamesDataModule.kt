@@ -24,7 +24,7 @@ internal interface GamesDataModule {
     @Singleton
     fun bindScreenshotRepository(impl: ScreenshotRepositoryImpl): ScreenshotRepository
 
-
     @Binds
+    @Singleton
     fun bindGenreRepository(impl: GenreRepositoryImpl): GenreRepository
 }

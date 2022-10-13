@@ -1,12 +1,11 @@
 package io.gamehub.data.games.repository
 
-import io.gamehub.data.games.common.Ordering
+import arrow.core.Option
 import io.gamehub.data.games.models.Genre
 
 interface GenreRepository {
     suspend fun getGenres(
-        ordering: Ordering,
         page: Int? = null,
         pageSize: Int? = null,
-    ): List<Genre>
+    ): Option<List<Genre>>
 }

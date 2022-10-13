@@ -1,32 +1,28 @@
 package io.gamehub.feature.home
 
 import androidx.lifecycle.viewModelScope
+import arrow.core.Option
+import arrow.core.continuations.option
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.gamehub.core.common.MviViewModel
-import io.gamehub.core.common.utils.executeSuspendAsyncSafe
-import io.gamehub.data.common.DateRange
-import io.gamehub.data.games.usecase.GetGenresUseCase
-import io.gamehub.data.games.usecase.GetNewArrivalsUseCase
-import io.gamehub.data.games.usecase.GetPopularGamesUseCase
-import io.gamehub.data.games.usecase.GetUpcomingGamesUseCase
 import io.gamehub.feature.home.models.CategoriesSection
 import io.gamehub.feature.home.models.GamesSection
 import io.gamehub.feature.home.models.SliderSection
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
+import io.gamehub.feature.home.usecase.BestOfTheYearGamesUseCase
+import io.gamehub.feature.home.usecase.GetGenresUseCase
+import io.gamehub.feature.home.usecase.MostPopularGamesUseCase
+import io.gamehub.feature.home.usecase.NewArrivalsUseCase
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.syntax.simple.intent
 import org.orbitmvi.orbit.syntax.simple.reduce
-import java.time.LocalDate
-import java.time.temporal.TemporalAdjusters
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val popularGamesUseCase: GetPopularGamesUseCase,
-    private val upcomingGamesUseCase: GetUpcomingGamesUseCase,
-    private val getNewArrivalsUseCase: GetNewArrivalsUseCase,
+    private val bestOfTheYearGamesUseCase: BestOfTheYearGamesUseCase,
     private val genresUseCase: GetGenresUseCase,
+    private val mostPopularGamesUseCase: MostPopularGamesUseCase,
+    private val newArrivalsUseCase: NewArrivalsUseCase,
 ) : MviViewModel<HomeState, Nothing>(initialState = Loading) {
 
     init {
@@ -36,59 +32,38 @@ class HomeViewModel @Inject constructor(
     }
 
     private suspend fun load() = intent {
-        executeSuspendAsyncSafe {
+        val state = getState().fold(
+            ifEmpty = { Error },
+            ifSome = { it }
+        )
 
-            val bestThisYearTask = async {
-                val start = LocalDate.now().withDayOfYear(1)
-                val end = start.with(TemporalAdjusters.lastDayOfYear())
-
-                popularGamesUseCase.invoke(dates = DateRange(start, end))
-            }
-
-            val genresTask = async { genresUseCase.getGenres() }
-
-            val upcomingTask = async {
-                val start = LocalDate.now()
-                val end = start.plusMonths(1)
-
-                upcomingGamesUseCase.invoke(dates = DateRange(start, end))
-            }
-
-            val recentReleasesTask = async { getNewArrivalsUseCase.invoke() }
-
-            awaitAll(bestThisYearTask, genresTask, recentReleasesTask, recentReleasesTask)
-
-            val bestOfThisYear = bestThisYearTask.await()
-            val genres = genresTask.await()
-            val comingThisMonth = upcomingTask.await()
-            val newGames = recentReleasesTask.await()
-
-            Default(
-                listOf(
-                    SliderSection(bestOfThisYear),
-                    CategoriesSection(
-                        titleId = R.string.genres,
-                        items = genres
-                    ),
-                    GamesSection(
-                        titleId = R.string.coming_in_a_month,
-                        items = comingThisMonth
-                    ),
-                    GamesSection(
-                        titleId = R.string.new_arrivals,
-                        items = newGames
-                    ),
-                )
-            )
-        }.onSuccess { state ->
-            reduce {
-                state
-            }
-        }.onFailure {
-            println(it)
-            reduce {
-                Error
-            }
+        reduce {
+            state
         }
+    }
+
+    private suspend fun getState(): Option<Default> = option {
+        val bestOfTheYear = bestOfTheYearGamesUseCase.invoke().bind()
+        val genres = genresUseCase.invoke().bind()
+        val mostPopularGames = mostPopularGamesUseCase.invoke().bind()
+        val newArrivals = newArrivalsUseCase.invoke().bind()
+
+        Default(
+            listOf(
+                SliderSection(bestOfTheYear),
+                CategoriesSection(
+                    titleId = R.string.genres,
+                    items = genres
+                ),
+                GamesSection(
+                    titleId = R.string.most_popular_games,
+                    items = mostPopularGames
+                ),
+                GamesSection(
+                    titleId = R.string.new_arrivals,
+                    items = newArrivals
+                ),
+            )
+        )
     }
 }

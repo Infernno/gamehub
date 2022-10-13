@@ -1,27 +1,43 @@
 package io.gamehub.data.games.repository
 
-import io.gamehub.data.common.DateRange
-import io.gamehub.data.games.common.Ordering
+import arrow.core.Option
+import io.gamehub.data.games.models.DateRange
 import io.gamehub.data.games.models.GameDetails
 import io.gamehub.data.games.models.GameShort
 
 interface GameRepository {
 
-    suspend fun getGames(
+    suspend fun getUpcomingGames(
+        dateRange: DateRange,
         page: Int? = null,
         pageSize: Int? = null,
-        search: String? = null,
-        genres: List<String>? = null,
-        dates: DateRange? = null,
-        ordering: Ordering? = null,
-        metacritic: IntRange? = null
-    ): List<GameShort>
+    ): Option<List<GameShort>>
+
+    suspend fun getNewArrivals(
+        dateRange: DateRange,
+        page: Int? = null,
+        pageSize: Int? = null,
+    ): Option<List<GameShort>>
+
+    suspend fun getPopularGames(
+        dateRange: DateRange,
+        page: Int? = null,
+        pageSize: Int? = null,
+    ): Option<List<GameShort>>
+
+    suspend fun getGamesByGenre(
+        genre: String,
+        page: Int? = null,
+        pageSize: Int? = null,
+    ): Option<List<GameShort>>
+
+    suspend fun getGamesByName(
+        name: String,
+        page: Int? = null,
+        pageSize: Int? = null,
+    ): Option<List<GameShort>>
 
     suspend fun getGameDetails(
-        id: Int
-    ): GameDetails
-
-    suspend fun getGameDetails(
-        slug: String
-    ): GameDetails
+        slug: String,
+    ): Option<GameDetails>
 }

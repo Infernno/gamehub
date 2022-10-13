@@ -15,5 +15,5 @@ data class BaseResponse<T>(
     val previousUrl: String? = null,
 
     @SerialName("results")
-    val results: List<T>
+    val results: List<T>,
 )

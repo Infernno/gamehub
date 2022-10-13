@@ -46,6 +46,8 @@ import io.gamehub.core.ui.components.HubSlider
 import io.gamehub.core.ui.theme.horizontalScreenPaddings
 import io.gamehub.data.games.models.GameDetails
 import org.orbitmvi.orbit.compose.collectAsState
+import java.time.format.DateTimeFormatter
+import java.util.Locale
 
 @Composable
 fun GameDetailsScreen(
@@ -84,19 +86,24 @@ private fun GameDetailsContent(
 private fun GameDetailsMain(
     state: Default,
 ) {
+    val game = state.game
+    val formatter = remember {
+        DateTimeFormatter.ofPattern("dd LLLL yyyy", Locale.US) // TODO: Add localization
+    }
+
     Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
     ) {
         GameHeader(
             modifier = Modifier.horizontalScreenPaddings(),
-            model = state.game
+            model = game
         )
-        if (state.game.metacritic != null && (state.game.playtime ?: 0) > 0) {
+        if (game.metacritic != null && (game.playtime ?: 0) > 0) {
             Spacer(modifier = Modifier.height(20.dp))
             GameFeatures(
                 modifier = Modifier.horizontalScreenPaddings(),
-                model = state.game
+                model = game
             )
         }
         Spacer(modifier = Modifier.height(20.dp))
@@ -120,26 +127,30 @@ private fun GameDetailsMain(
         ) {
             Text(
                 style = MaterialTheme.typography.bodyMedium,
-                text = state.game.description,
+                text = game.description,
             )
         }
 
-        section(
-            title = stringResource(id = R.string.platforms)
-        ) {
-            Text(
-                style = MaterialTheme.typography.bodyMedium,
-                text = remember { state.game.platforms.joinToString(separator = ", ") },
-            )
+        if (game.platforms.isNotEmpty()) {
+            section(
+                title = stringResource(id = R.string.platforms)
+            ) {
+                Text(
+                    style = MaterialTheme.typography.bodyMedium,
+                    text = remember { game.platforms.joinToString(separator = ", ") },
+                )
+            }
         }
 
-        section(
-            title = stringResource(id = R.string.stores)
-        ) {
-            Text(
-                style = MaterialTheme.typography.bodyMedium,
-                text = remember { state.game.stores.joinToString(separator = ", ") },
-            )
+        if (game.stores.isNotEmpty()) {
+            section(
+                title = stringResource(id = R.string.stores)
+            ) {
+                Text(
+                    style = MaterialTheme.typography.bodyMedium,
+                    text = remember { game.stores.joinToString(separator = ", ") },
+                )
+            }
         }
 
         section(
@@ -147,7 +158,7 @@ private fun GameDetailsMain(
         ) {
             Text(
                 style = MaterialTheme.typography.bodyMedium,
-                text = remember { state.game.developers.joinToString(separator = ", ") },
+                text = remember { game.developers.joinToString(separator = ", ") },
             )
         }
 
@@ -156,8 +167,19 @@ private fun GameDetailsMain(
         ) {
             Text(
                 style = MaterialTheme.typography.bodyMedium,
-                text = remember { state.game.publishers.joinToString(separator = ", ") },
+                text = remember { game.publishers.joinToString(separator = ", ") },
             )
+        }
+
+        if (game.released != null) {
+            section(
+                title = stringResource(id = R.string.release_date)
+            ) {
+                Text(
+                    style = MaterialTheme.typography.bodyMedium,
+                    text = formatter.format(game.released)
+                )
+            }
         }
 
         Spacer(modifier = Modifier.height(10.dp))

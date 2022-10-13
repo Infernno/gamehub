@@ -19,8 +19,12 @@ class ReleaseCalendarViewModel @Inject constructor(
     private val gamesPagingSource: Lazy<GamesPagingSource>
 ) : ViewModel() {
     val games: Flow<PagingData<GameShort>> =
-        Pager(PagingConfig(pageSize = 20)) { gamesPagingSource.get() }
+        Pager(PagingConfig(pageSize = PAGE_SIZE, initialLoadSize = PAGE_SIZE)) { gamesPagingSource.get() }
             .flow
             .cachedIn(viewModelScope)
             .stateIn(viewModelScope, SharingStarted.Lazily, PagingData.empty())
+
+    private companion object {
+        const val PAGE_SIZE = 30
+    }
 }

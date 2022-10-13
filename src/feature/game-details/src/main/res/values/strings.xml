@@ -9,4 +9,5 @@
     <string name="stores">Stores</string>
     <string name="developer">Developer</string>
     <string name="publisher">Publisher</string>
+    <string name="release_date">Date of release</string>
 </resources>

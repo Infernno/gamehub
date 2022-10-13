@@ -18,5 +18,5 @@ data class GenreFullDto(
     val gamesCount: Int,
 
     @SerialName("image_background")
-    val imageUrl: String
+    val imageUrl: String,
 )

@@ -6,6 +6,3 @@ data class Screenshot(
     val imageUrl: String,
 )
 
-internal fun ScreenshotDto.toDomain(): Screenshot {
-    return Screenshot(imageUrl)
-}

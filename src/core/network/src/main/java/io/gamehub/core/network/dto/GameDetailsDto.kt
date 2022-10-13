@@ -57,5 +57,5 @@ data class GameDetailsDto(
     val stores: List<BaseStoreDto>? = null,
 
     @SerialName("platforms")
-    val platforms: List<BasePlatformDto>? = null
+    val platforms: List<BasePlatformDto>? = null,
 )

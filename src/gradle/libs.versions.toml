@@ -17,6 +17,8 @@ androidxMetrics = "1.0.0-alpha03"
 
 googleMaterial = "1.6.1"
 
+arrowKt = "1.1.3"
+
 # Compose
 androidxCompose = "1.3.0-rc01"
 androidxComposeCompiler = "1.3.2"
@@ -59,6 +61,9 @@ androidx-metrics = { group = "androidx.metrics", name = "metrics-performance", v
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "androidxCoreSplashscreen" }
 
 google-material = { group = "com.google.android.material", name = "material", version.ref = "googleMaterial" }
+
+arrow-core = { group = "io.arrow-kt", name = "arrow-core", version.ref = "arrowKt" }
+arrow-retrofit = { group = "io.arrow-kt", name = "arrow-core-retrofit", version.ref = "arrowKt" }
 
 # Network
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
@@ -156,10 +161,11 @@ androidx-compose-test = [
     "androidx-compose-ui-test"
 ]
 
-retrofi2 = [
+retrofit2 = [
     "retrofit2-runtime",
     "retrofit2-kotlinxSerialization",
     "kotlinx-serialization",
+    "arrow-retrofit"
 ]
 
 androidx-test = [
