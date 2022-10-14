@@ -16,13 +16,14 @@
 
 Written entirely in [Kotlin](https://kotlinlang.org/).
 
-Architecture: MVVM + multimodule (feature modules).
+Architecture: MVI + multimodule (feature modules).
 
 Tech stack:
 - Kotlin Coroutines & Flow
-- Fragment + Views
-- Dagger 2
-- Material Components
+- Jetpack Compose
+- Dagger Hilt
+- Material 3
 - OkHttp3 & Retrofit
+- Arrow-Kt
 - Lottie
-- Glide
+- Coil
