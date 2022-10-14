@@ -7,6 +7,7 @@ data class GameShort(
     val id: Long,
     val name: String,
     val slug: String,
+    val metacritic: Int?,
     val genres: List<String>,
     val screenshots: List<String>,
     val platforms: List<String>,

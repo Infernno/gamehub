@@ -20,6 +20,9 @@ data class GameShortDto(
     @SerialName("tba")
     val tba: Boolean?,
 
+    @SerialName("metacritic")
+    val metacritic: Int?,
+
     @SerialName("background_image")
     val backgroundImage: String? = null,
 

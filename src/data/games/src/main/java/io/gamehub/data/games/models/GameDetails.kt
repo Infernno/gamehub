@@ -7,7 +7,7 @@ data class GameDetails(
     val slug: String,
     val name: String,
     val nameOriginal: String,
-    val description: String,
+    val descriptionRaw: String,
     val metacritic: Int?,
     val released: LocalDate?,
     val tba: Boolean?,

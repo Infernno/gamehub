@@ -4,12 +4,12 @@ import arrow.core.Option
 import arrow.core.continuations.option
 import io.gamehub.data.games.models.GameDetails
 import io.gamehub.data.games.models.Screenshot
-import io.gamehub.data.games.repository.GameRepository
+import io.gamehub.data.games.repository.GameDetailsRepository
 import io.gamehub.data.games.repository.ScreenshotRepository
 import javax.inject.Inject
 
 class GetGameDetailsUseCase @Inject constructor(
-    private val gameRepository: GameRepository,
+    private val gameRepository: GameDetailsRepository,
     private val screenshotRepository: ScreenshotRepository,
 ) {
     suspend fun invoke(

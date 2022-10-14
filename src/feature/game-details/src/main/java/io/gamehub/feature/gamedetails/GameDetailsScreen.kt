@@ -127,7 +127,7 @@ private fun GameDetailsMain(
         ) {
             Text(
                 style = MaterialTheme.typography.bodyMedium,
-                text = game.description,
+                text = game.descriptionRaw,
             )
         }
 
