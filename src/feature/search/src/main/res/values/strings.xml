@@ -1,0 +1,4 @@
+<resources>
+    <string name="hint_search_query">Search for a game</string>
+    <string name="nothing_found">Nothing found</string>
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="genres">Categories</string>
+    <string name="popular_games">Popular games</string>
+    <string name="new_arrivals">New arrivals</string>
+    <string name="most_popular_games">Most popular games</string>
+    <string name="search_bar">Search for any game here…</string>
+</resources>
