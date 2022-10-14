@@ -10,6 +10,7 @@ android {
 
 dependencies  {
     implementation(projects.core.network)
+    implementation(projects.core.database)
     api(libs.arrow.core)
 
     implementation(libs.dagger2.hilt.runtime)

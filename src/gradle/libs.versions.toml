@@ -16,8 +16,8 @@ androidxCoreSplashscreen = "1.0.0"
 androidxMetrics = "1.0.0-alpha03"
 
 googleMaterial = "1.6.1"
-
 arrowKt = "1.1.3"
+room = "2.4.3"
 
 # Compose
 androidxCompose = "1.3.0-rc01"
@@ -109,6 +109,10 @@ orbit-mvi-viewmodel = { module = "org.orbit-mvi:orbit-viewmodel", version.ref = 
 orbit-mvi-compose = { module = "org.orbit-mvi:orbit-compose", version.ref = "orbitmvi" }
 
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
+
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
 
 # Tests
 androidx-test-ext = { group = "androidx.test.ext", name = "junit", version.ref = "androidxTestJunit" }

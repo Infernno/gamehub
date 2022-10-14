@@ -81,14 +81,6 @@ internal class GameRepositoryImpl @Inject constructor(
         ).mapToDomain()
     }
 
-    override suspend fun getGameDetails(slug: String): Option<GameDetails> {
-        return api.getGameDetails(
-            id = slug
-        )
-            .map { it.toDomain() }
-            .orNone()
-    }
-
     private fun Either<CallError, BaseResponse<GameShortDto>>.mapToDomain(): Option<List<GameShort>> {
         return map { response ->
             response.results.map { it.toDomain() }

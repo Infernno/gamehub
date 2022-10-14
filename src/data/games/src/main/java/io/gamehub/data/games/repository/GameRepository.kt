@@ -36,8 +36,4 @@ interface GameRepository {
         page: Int? = null,
         pageSize: Int? = null,
     ): Option<List<GameShort>>
-
-    suspend fun getGameDetails(
-        slug: String,
-    ): Option<GameDetails>
 }
