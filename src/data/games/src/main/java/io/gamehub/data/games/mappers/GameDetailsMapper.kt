@@ -35,7 +35,7 @@ internal fun GameDetailsEntity.toDomain(): GameDetails {
         nameOriginal = nameOriginal,
         descriptionRaw = descriptionRaw,
         metacritic = metacritic,
-        released = released?.let { LocalDate.parse(it) },
+        released = released,
         tba = tba,
         backgroundImageUrl = backgroundImageUrl,
         websiteUrl = websiteUrl,
@@ -50,5 +50,23 @@ internal fun GameDetailsEntity.toDomain(): GameDetails {
 }
 
 internal fun GameDetails.toEntity() : GameDetailsEntity {
-    TODO()
+    return GameDetailsEntity(
+        id = id,
+        slug = slug,
+        name = name,
+        nameOriginal = nameOriginal,
+        descriptionRaw = descriptionRaw,
+        metacritic = metacritic,
+        released = released,
+        tba = tba,
+        backgroundImageUrl = backgroundImageUrl,
+        websiteUrl = websiteUrl,
+        playtime = playtime,
+        screenshotsCount = screenshotsCount,
+        genres = genres,
+        developers = developers,
+        publishers = publishers,
+        stores = stores,
+        platforms = platforms
+    )
 }

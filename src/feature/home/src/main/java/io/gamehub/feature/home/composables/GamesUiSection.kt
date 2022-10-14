@@ -111,7 +111,8 @@ private fun ItemPreview() {
                 releaseDate = LocalDate.now(),
                 screenshots = emptyList(),
                 platforms = emptyList(),
-                stores = emptyList()
+                stores = emptyList(),
+                metacritic = null
             )
         )
     }
@@ -131,7 +132,8 @@ private fun ItemPreviewDark() {
                 releaseDate = LocalDate.now(),
                 screenshots = emptyList(),
                 platforms = emptyList(),
-                stores = emptyList()
+                stores = emptyList(),
+                metacritic = null
             )
         )
     }

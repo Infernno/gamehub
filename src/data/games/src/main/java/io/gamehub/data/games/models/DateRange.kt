@@ -1,8 +1,6 @@
 package io.gamehub.data.games.models
 
-import java.sql.Timestamp
 import java.time.LocalDate
-import java.time.temporal.TemporalAdjuster
 
 data class DateRange(
     override val start: LocalDate,
@@ -13,13 +11,19 @@ data class DateRange(
     override fun iterator(): Iterator<LocalDate> = DateIterator(start, endInclusive, stepDays)
 
     override fun toString(): String {
-        return if(start == endInclusive)
+        return if (start == endInclusive)
             start.toString()
         else
             "$start,$endInclusive"
     }
 
+    fun startDateAsTimeStamp(): Long {
+        return start.toEpochDay()
+    }
 
+    fun endDateAsTimeStamp(): Long {
+        return endInclusive.toEpochDay()
+    }
 
     internal class DateIterator(
         startDate: LocalDate,

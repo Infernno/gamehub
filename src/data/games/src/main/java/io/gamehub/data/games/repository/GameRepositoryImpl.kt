@@ -2,19 +2,24 @@ package io.gamehub.data.games.repository
 
 import arrow.core.Either
 import arrow.core.Option
+import arrow.core.handleErrorWith
+import arrow.core.rightIfNotNull
 import arrow.retrofit.adapter.either.networkhandling.CallError
+import io.gamehub.core.database.dao.GameShortsDao
+import io.gamehub.core.database.entity.GameShortEntity
 import io.gamehub.core.network.api.RawgApi
 import io.gamehub.core.network.dto.BaseResponse
 import io.gamehub.core.network.dto.GameShortDto
 import io.gamehub.core.network.dto.Ordering
 import io.gamehub.data.games.mappers.toDomain
+import io.gamehub.data.games.mappers.toEntity
 import io.gamehub.data.games.models.DateRange
-import io.gamehub.data.games.models.GameDetails
 import io.gamehub.data.games.models.GameShort
 import javax.inject.Inject
 
 internal class GameRepositoryImpl @Inject constructor(
     private val api: RawgApi,
+    private val gameShortsDao: GameShortsDao
 ) : GameRepository {
 
     override suspend fun getUpcomingGames(
@@ -27,7 +32,14 @@ internal class GameRepositoryImpl @Inject constructor(
             dates = dateRange.toString(),
             page = page,
             pageSize = pageSize
-        ).mapToDomain()
+        ).sync {
+            gameShortsDao.getGamesByDate(
+                start = dateRange.startDateAsTimeStamp(),
+                end = dateRange.endDateAsTimeStamp(),
+                pageSize = getPageSize(pageSize),
+                offset = getOffset(page, pageSize)
+            )
+        }
     }
 
     override suspend fun getNewArrivals(
@@ -40,7 +52,14 @@ internal class GameRepositoryImpl @Inject constructor(
             ordering = Ordering.ADDED_REVERSED.key,
             page = page,
             pageSize = pageSize,
-        ).mapToDomain()
+        ).sync {
+            gameShortsDao.getGamesByDate(
+                start = dateRange.startDateAsTimeStamp(),
+                end = dateRange.endDateAsTimeStamp(),
+                pageSize = getPageSize(pageSize),
+                offset = getOffset(page, pageSize)
+            )
+        }
     }
 
     override suspend fun getPopularGames(
@@ -53,7 +72,14 @@ internal class GameRepositoryImpl @Inject constructor(
             ordering = Ordering.METACRITIC_REVERSED.key,
             page = page,
             pageSize = pageSize,
-        ).mapToDomain()
+        ).sync {
+            gameShortsDao.getPopularGames(
+                start = dateRange.startDateAsTimeStamp(),
+                end = dateRange.endDateAsTimeStamp(),
+                pageSize = getPageSize(pageSize),
+                offset = getOffset(page, pageSize)
+            )
+        }
     }
 
     override suspend fun getGamesByGenre(
@@ -66,7 +92,13 @@ internal class GameRepositoryImpl @Inject constructor(
             genres = genre,
             page = page,
             pageSize = pageSize,
-        ).mapToDomain()
+        ).sync {
+            gameShortsDao.getGamesByGenre(
+                genre = genre,
+                pageSize = getPageSize(pageSize),
+                offset = getOffset(page, pageSize)
+            )
+        }
     }
 
     override suspend fun getGamesByName(
@@ -78,12 +110,32 @@ internal class GameRepositoryImpl @Inject constructor(
             search = name,
             page = page,
             pageSize = pageSize
-        ).mapToDomain()
+        ).sync {
+            gameShortsDao.getGamesByName(
+                title = name,
+                pageSize = getPageSize(pageSize),
+                offset = getOffset(page, pageSize)
+            )
+        }
     }
 
-    private fun Either<CallError, BaseResponse<GameShortDto>>.mapToDomain(): Option<List<GameShort>> {
+    private fun getPageSize(pageSize: Int?): Int {
+        return pageSize ?: 30
+    }
+
+    private fun getOffset(page: Int?, pageSize: Int?): Int {
+        return (page?.minus(1) ?: 0) * getPageSize(pageSize)
+    }
+
+    private suspend fun Either<CallError, BaseResponse<GameShortDto>>.sync(
+        fallback: suspend () -> List<GameShortEntity>?,
+    ): Option<List<GameShort>> {
         return map { response ->
             response.results.map { it.toDomain() }
+        }.tap { games ->
+            gameShortsDao.insert(games.map { it.toEntity() })
+        }.handleErrorWith {
+            fallback()?.map { it.toDomain() }.rightIfNotNull { it }
         }.orNone()
     }
 }
