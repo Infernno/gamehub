@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.dagger.hilt) apply false
+    alias(libs.plugins.detekt) apply false
 }
 
 tasks.register<Delete>("clean") {

@@ -1,3 +1,4 @@
+import io.gamehub.buildlogic.BuildConfig
 import java.util.*
 
 plugins {
@@ -12,6 +13,14 @@ if (localProperties.exists() && localProperties.isFile) {
     }
 }
 
+val keystoreProps = Properties()
+val keystoreProperties = File(rootProject.rootDir, "keystore.properties")
+if (keystoreProperties.exists() && keystoreProperties.isFile) {
+    localProperties.inputStream().use { input ->
+        keystoreProps.load(input)
+    }
+}
+
 android {
     namespace = "io.gamehub"
 
@@ -20,8 +29,17 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        val apiKey = checkNotNull(localProps.getProperty("rawg.apiKey"))
+        val apiKey = checkNotNull(localProps.getProperty("rawg.apiKey") ?: System.getenv()["RAWG_API_KEY"])
         buildConfigField("String", "RAWG_API_KEY", "\"$apiKey\"")
+    }
+
+    signingConfigs {
+        create("release") {
+            keyAlias = keystoreProps.getProperty("alias")
+            keyPassword = keystoreProps.getProperty("password")
+            storeFile = File(rootProject.rootDir, "keystore.jks")
+            storePassword = keystoreProps.getProperty("password")
+        }
     }
 }
 
