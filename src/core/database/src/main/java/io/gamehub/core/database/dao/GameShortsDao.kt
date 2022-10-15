@@ -12,7 +12,7 @@ interface GameShortsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(items: List<GameShortEntity>)
 
-    @Query("SELECT * FROM ${GameShortEntity.TABLE_NAME} WHERE releaseDate BETWEEN :start AND :end ORDER BY releaseDate DESC LIMIT :pageSize OFFSET :offset")
+    @Query("SELECT * FROM ${GameShortEntity.TABLE_NAME} WHERE releaseDate BETWEEN :start AND :end ORDER BY releaseDate ASC LIMIT :pageSize OFFSET :offset")
     suspend fun getGamesByDate(
         start: Long,
         end: Long,
