@@ -20,7 +20,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        val apiKey = checkNotNull(localProps.getProperty("rawg.apiKey"))
+        val apiKey = checkNotNull(localProps.getProperty("rawg.apiKey")) { "No api key found!" }
         buildConfigField("String", "RAWG_API_KEY", "\"$apiKey\"")
     }
 }

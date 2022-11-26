@@ -5,13 +5,11 @@ import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 
 @Suppress("UnstableApiUsage")
-class AndroidComposeLibraryConventionPlugin : Plugin<Project> {
-    override fun apply(target: Project) {
-        with(target) {
-            pluginManager.apply {
-                apply("gamehub.android.library")
-            }
+open class AndroidComposeLibraryPlugin : AndroidLibraryPlugin() {
+    override fun apply(project: Project) {
+        super.apply(project)
 
+        project.run {
             extensions.configure<LibraryExtension> {
                 configureCompose(this)
             }

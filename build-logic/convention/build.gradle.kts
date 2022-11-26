@@ -18,23 +18,23 @@ gradlePlugin {
     plugins {
         register("androidApplication") {
             id = "gamehub.android.application"
-            implementationClass = "AndroidApplicationConventionPlugin"
+            implementationClass = "AndroidAppPlugin"
         }
         register("androidLibrary") {
             id = "gamehub.android.library"
-            implementationClass = "AndroidLibraryConventionPlugin"
+            implementationClass = "AndroidLibraryPlugin"
         }
         register("androidComposeLibrary") {
             id = "gamehub.android.composeLibrary"
-            implementationClass = "AndroidComposeLibraryConventionPlugin"
+            implementationClass = "AndroidComposeLibraryPlugin"
         }
         register("androidComposeFeature") {
             id = "gamehub.android.composeFeature"
-            implementationClass = "AndroidComposeFeatureConventionPlugin"
+            implementationClass = "AndroidComposeFeaturePlugin"
         }
         register("androidComposeApp") {
             id = "gamehub.android.composeApp"
-            implementationClass = "AndroidComposeApplicationConventionPlugin"
+            implementationClass = "AndroidComposeAppPlugin"
         }
         register("kotlinJvmLibrary") {
             id = "gamehub.kotlin.jvm"

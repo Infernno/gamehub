@@ -4,57 +4,65 @@ package io.gamehub.buildlogic
 
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.Project
+import io.gamehub.buildlogic.config.AppConfig
+import io.gamehub.buildlogic.config.Plugins
+import io.gamehub.buildlogic.extensions.*
+import io.gamehub.buildlogic.extensions.addDependencyFromVersionCatalog
+import io.gamehub.buildlogic.extensions.kotlinOptions
 import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.kotlin.dsl.dependencies
 import org.gradle.kotlin.dsl.getByType
 
 /**
- * Configure Kotlin
+ * Common kotlin setup for project.
  */
 internal fun Project.configureKotlin(
     commonExtension: CommonExtension<*, *, *, *>,
-) {
-    commonExtension.apply {
+) = commonExtension.apply {
 
-        compileOptions {
-            sourceCompatibility = BuildConfig.JVM_TARGET
-            targetCompatibility = BuildConfig.JVM_TARGET
-        }
+    compileOptions {
+        sourceCompatibility = AppConfig.JVM_TARGET
+        targetCompatibility = AppConfig.JVM_TARGET
+    }
 
-        kotlinOptions {
-            // Treat all Kotlin warnings as errors (disabled by default)
-            allWarningsAsErrors = properties["warningsAsErrors"] as? Boolean ?: false
+    kotlinOptions {
+        // Treat all Kotlin warnings as errors (disabled by default)
+        allWarningsAsErrors = properties["warningsAsErrors"] as? Boolean ?: false
 
-            freeCompilerArgs = freeCompilerArgs + listOf(
-                "-opt-in=kotlin.RequiresOptIn",
-                // Enable experimental APIs
-                "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            )
+        freeCompilerArgs = freeCompilerArgs + listOf(
+            "-opt-in=kotlin.RequiresOptIn",
+            // Enable experimental APIs
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+        )
 
-            // Set JVM target to 1.8
-            jvmTarget = BuildConfig.JVM_TARGET.toString()
-        }
+        jvmTarget = AppConfig.JVM_TARGET.toString()
     }
 }
 
-internal fun Project.configureCommonDeps() {
-    addDependencyFromVersionCatalog { libs ->
-        add("testImplementation", libs.findLibrary("junit").get())
-        add("androidTestImplementation", libs.findBundle("androidx-test").get())
-    }
+/**
+ * Setup common dependencies for Android modules.
+ */
+internal fun Project.configureCommonDependencies() = addDependencyFromVersionCatalog { libs ->
+    testImplementation(libs.findLibrary("junit").get())
+    androidTestImplementation(libs.findBundle("androidx-test").get())
 }
 
+/**
+ * Adds Dagger and kotlin-kapt as dependencies.
+ */
 internal fun Project.configureDaggerHilt() {
+    applyPlugin(name = Plugins.KOTLIN_KAPT)
+    applyPlugin(name = Plugins.DAGGER_HILT)
+
     addDependencyFromVersionCatalog { libs ->
-        add("implementation", libs.findLibrary("dagger2-hilt-runtime").get())
-        add("kapt", libs.findLibrary("dagger2-hilt-compiler").get())
+        implementation(libs.findLibrary("dagger2-hilt-runtime").get())
+        kapt(libs.findLibrary("dagger2-hilt-compiler").get())
     }
 }
 
 internal fun Project.configureCompose(
     commonExtension: CommonExtension<*, *, *, *>,
 ) {
-    val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+    val versionCatalog = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
     commonExtension.apply {
         buildFeatures.apply {
@@ -62,16 +70,17 @@ internal fun Project.configureCompose(
         }
 
         composeOptions {
-            kotlinCompilerExtensionVersion =
-                libs.findVersion("androidxComposeCompiler").get().toString()
+            kotlinCompilerExtensionVersion = versionCatalog.findVersion("androidxComposeCompiler")
+                .get()
+                .toString()
         }
     }
 
-    dependencies {
+    addDependencyFromVersionCatalog { libs ->
         // Note: you can add any compose libraries to these bundles in libs.versions.toml
         // and they will be added to all compose modules automatically
-        add("implementation", libs.findBundle("androidx-compose-runtime").get())
-        add("debugImplementation", libs.findBundle("androidx-compose-tooling").get())
-        add("androidTestImplementation", libs.findBundle("androidx-compose-test").get())
+        implementation(libs.findBundle("androidx-compose-runtime").get())
+        debugImplementation(libs.findBundle("androidx-compose-tooling").get())
+        androidTestImplementation(libs.findBundle("androidx-compose-test").get())
     }
 }

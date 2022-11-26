@@ -16,6 +16,8 @@ dependencyResolutionManagement {
     }
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 rootProject.name = "GameHub"
 include(":app")
 include(":core:ui")
